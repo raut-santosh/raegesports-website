@@ -171,7 +171,7 @@
         left: -2px;
         top: 50%;
         @include transform(translateY(-50%));
-        background-image: url(../img/icons/btn_shape01.png);
+        background-image: url(assets/img/icons/btn_shape01.png);
         width: 15px;
         height: 51px;
         pointer-events: none;
@@ -189,7 +189,7 @@
         border: 2px solid var(--tg-theme-secondary);
         &::before,
         &::after {
-            background-image: url(../img/icons/btn_shape02.png);
+            background-image: url(assets/img/icons/btn_shape02.png);
         }
         &:hover {
             background-color: var(--tg-theme-secondary);

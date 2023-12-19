@@ -335,7 +335,7 @@
                     left: 50%;
                     top: 50%;
                     @include transform(translate(-50%, -50%));
-                    background-image: url(../img/icons/trophy_color.png);
+                    background-image: url(assets/img/icons/trophy_color.png);
                     width: 95px;
                     height: 96px;
                     background-position: center;
@@ -673,8 +673,8 @@
                 height: 487px;
                 -o-object-fit: cover;
                 object-fit: cover;
-                -webkit-mask-image: url(../img/bg/mask_bg01.png);
-                mask-image: url(../img/bg/mask_bg01.png);
+                -webkit-mask-image: url(assets/img/bg/mask_bg01.png);
+                mask-image: url(assets/img/bg/mask_bg01.png);
                 -webkit-mask-position: top left;
                 mask-position: top left;
                 -webkit-mask-repeat: no-repeat;
@@ -702,8 +702,8 @@
                 height: 382px;
                 -o-object-fit: cover;
                 object-fit: cover;
-                -webkit-mask-image: url(../img/bg/mask_bg02.png);
-                mask-image: url(../img/bg/mask_bg02.png);
+                -webkit-mask-image: url(assets/img/bg/mask_bg02.png);
+                mask-image: url(assets/img/bg/mask_bg02.png);
                 -webkit-mask-position: top left;
                 mask-position: top left;
                 -webkit-mask-repeat: no-repeat;

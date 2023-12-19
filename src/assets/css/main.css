@@ -38,7 +38,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap");
 @font-face {
   font-family: "berlin_sans_fb_demibold";
-  src: url("../fonts/berlin_sans_fb_demi_bold-webfont.woff2") format("woff2"), url("../fonts/berlin_sans_fb_demi_bold-webfont.woff") format("woff");
+  src: url("../../assets/fonts/berlin_sans_fb_demi_bold-webfont.woff") format("woff2"), url("../../assets/fonts/berlin_sans_fb_demi_bold-webfont.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -603,7 +603,7 @@ input[type=color] {
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  background-image: url(../img/icons/btn_shape01.png);
+  background-image: url(assets/img/icons/btn_shape01.png);
   width: 15px;
   height: 51px;
   pointer-events: none;
@@ -625,7 +625,7 @@ input[type=color] {
   border: 2px solid var(--tg-theme-secondary);
 }
 .tg-btn-2.-secondary::before, .tg-btn-2.-secondary::after {
-  background-image: url(../img/icons/btn_shape02.png);
+  background-image: url(assets/img/icons/btn_shape02.png);
 }
 .tg-btn-2.-secondary:hover {
   background-color: var(--tg-theme-secondary);
@@ -721,7 +721,7 @@ input[type=color] {
   top: 100%;
   width: 100%;
   height: 370px;
-  background-image: url(../img/bg/search_wave.png);
+  background-image: url(assets/img/bg/search_wave.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -1646,7 +1646,7 @@ Default Tab Style
 .section__title::after {
   content: "";
   display: block;
-  background-image: url(../img/bg/title_shape.svg);
+  background-image: url(assets/img/bg/title_shape.svg);
   width: 65px;
   height: 5px;
   margin: 20px auto 0;
@@ -2499,7 +2499,7 @@ Default Tab Style
   position: absolute;
   left: 0;
   top: 0;
-  background-image: url(../img/slider/text_gradient_bg.png);
+  background-image: url(assets/img/slider/text_gradient_bg.png);
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
@@ -3159,7 +3159,7 @@ Default Tab Style
   color: var(--tg-theme-primary);
 }
 .trendingNft__item {
-  background-image: url(../img/bg/trendnft_img.png);
+  background-image: url(assets/img/bg/trendnft_img.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -3784,7 +3784,7 @@ Default Tab Style
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  background-image: url(../img/icons/trophy_color.png);
+  background-image: url(assets/img/icons/trophy_color.png);
   width: 95px;
   height: 96px;
   background-position: center;
@@ -4210,8 +4210,8 @@ Default Tab Style
   height: 487px;
   -o-object-fit: cover;
   object-fit: cover;
-  -webkit-mask-image: url(../img/bg/mask_bg01.png);
-  mask-image: url(../img/bg/mask_bg01.png);
+  -webkit-mask-image: url(assets/img/bg/mask_bg01.png);
+  mask-image: url(assets/img/bg/mask_bg01.png);
   -webkit-mask-position: top left;
   mask-position: top left;
   -webkit-mask-repeat: no-repeat;
@@ -4247,8 +4247,8 @@ Default Tab Style
   height: 382px;
   -o-object-fit: cover;
   object-fit: cover;
-  -webkit-mask-image: url(../img/bg/mask_bg02.png);
-  mask-image: url(../img/bg/mask_bg02.png);
+  -webkit-mask-image: url(assets/img/bg/mask_bg02.png);
+  mask-image: url(assets/img/bg/mask_bg02.png);
   -webkit-mask-position: top left;
   mask-position: top left;
   -webkit-mask-repeat: no-repeat;
@@ -5361,7 +5361,7 @@ Default Tab Style
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../img/bg/video_overlay.png);
+  background-image: url(assets/img/bg/video_overlay.png);
   background-position: center;
   background-size: cover;
   opacity: 0.38;
@@ -5666,7 +5666,7 @@ Default Tab Style
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  background-image: url(../img/bg/line.png);
+  background-image: url(assets/img/bg/line.png);
   max-width: 80%;
   height: 13px;
   background-repeat: no-repeat;
@@ -7702,7 +7702,7 @@ Default Tab Style
 .shop__item {
   width: 100%;
   height: 406px;
-  background-image: url(../img/bg/shop_shape.svg);
+  background-image: url(assets/img/bg/shop_shape.svg);
   background-size: contain;
   background-position: top center;
   background-repeat: no-repeat;
@@ -9601,7 +9601,7 @@ blockquote p {
   position: absolute;
   left: 0;
   top: 0;
-  background-image: url(../img/bg/footer_shape.png);
+  background-image: url(assets/img/bg/footer_shape.png);
   width: 100%;
   height: 100%;
   background-position: top center;

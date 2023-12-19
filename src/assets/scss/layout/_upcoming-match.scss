@@ -36,7 +36,7 @@
             right: 0;
             top: 50%;
             @include transform(translateY(-50%));
-            background-image: url(../img/bg/line.png);
+            background-image: url(assets/img/bg/line.png);
             max-width: 80%;
             height: 13px;
             background-repeat: no-repeat;
