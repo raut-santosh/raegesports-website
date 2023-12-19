@@ -93,7 +93,8 @@
               "node_modules/ngx-toastr/toastr-bs5-alert.scss"
 
             ],
-            "scripts": []
+            "scripts": [
+            ]
           }
         }
       }
