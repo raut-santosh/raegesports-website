@@ -31,91 +31,33 @@ export class AuthService {
   }
 
 
-  // login(params: any) {
-  //   return this.http
-  //     .post<any>(
-  //       this.apiUrl + '/' + this.apiService.APILIST.AUTH_LOGIN.endpoint,
-  //       params
-  //     )
-  //     .pipe(
-  //       map((data) => {
-  //         if (data && data.token) {
-  //           this._syncUser({token: data.token});
-  //         }
-  //         return data;
-  //       })
-  //     );
-  // }
-
-  // verifyOtp(params: any) {
-  //   return this.http
-  //     .post<any>(
-  //       this.apiUrl + '/' + this.apiService.APILIST.VERIFY_OTP.endpoint,
-  //       params
-  //     )
-  //     .pipe(
-  //       map((data) => {
-  //         if (data && data.token) {
-  //           this._syncUser({token: data.token});
-  //         }
-  //         return data;
-  //       })
-  //     );
-  // }
-  // resendOtp(params: any) {
-  //   return this.http
-  //     .post<any>(
-  //       this.apiUrl + '/' + this.apiService.APILIST.RESEND_OTP.endpoint,
-  //       params
-  //     )
-  //     .pipe(
-  //       map((data) => {
-  //         if (data && data.token) {
-  //           this._syncUser({token: data.token});
-  //         }
-  //         return data;
-  //       })
-  //     );
-  // }
-  // register(params: any) {
-  //   return this.http
-  //     .post<any>(
-  //       this.apiUrl + '/' + this.apiService.APILIST.AUTH_REGISTER.endpoint,
-  //       params
-  //     )
-  //     .pipe(
-  //       map((data) => {
-  //         if (data && data.token) {
-  //           this._syncUser({token: data.token});
-  //           console.log(data);
-  //         }
-  //         return data;
-  //       })
-  //     );
-  // }
-
-  // refreshtoken(params = null) {
-    // return this.http
-    //   .post<any>(
-    //     this.apiUrl + '/' + this.apiService.APIS.AUTH_REFRESHTOKEN.endpoint,
-    //     params
-    //   )
-    //   .pipe(
-    //     map((data) => {
-    //       this._syncUser(data);
-    //       return data;
-    //     })
-    //   );
-  // }
-
-  logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    if(this.currentUserSubject){
-      this.currentUserSubject.next(null);
-    }
-    this.router.navigate(['/auth/login']);
+  login(params: any) {
+    console.log('login')
+    return this.http
+      .post<any>(
+        this.apiUrl + '/' + this.apiService.APIS.AUTH_LOGIN.endpoint,
+        params
+      )
+      .pipe(
+        map((data) => {
+          if (data && data.data.access_token) {
+            console.log('added')
+            this._syncUser(data.data);
+          }
+          return data;
+        })
+      );
   }
+
+
+  // logout() {
+  //   // remove user from local storage to log user out
+  //   localStorage.removeItem('currentUser');
+  //   if(this.currentUserSubject){
+  //     this.currentUserSubject.next(null);
+  //   }
+  //   this.router.navigate(['/auth/login']);
+  // }
 
   _syncUser(data: any) {
     localStorage.setItem('currentUser', JSON.stringify(data));

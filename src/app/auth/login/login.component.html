@@ -29,21 +29,21 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-12">
                     <div class="contact__form-wrap">
-                        <form id="contact-form" action="assets/mail.php" method="POST">
+                        <form (ngSubmit)="formSubmit($event)" id="contact-form" method="POST">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-grp">
-                                        <input name="email" type="email" placeholder="Email *" required>
+                                        <input [(ngModel)]="model.email" name="email" type="email" placeholder="Email *" required>
                                     </div>
                                     <div class="input-grp">
-                                        <input name="password" type="password" placeholder="Password *" required>
+                                        <input [(ngModel)]="model.password" name="password" type="password" placeholder="Password *" required>
                                     </div>
                                 </div>
                             </div>
                             
                            <div class="row">
                                 <div class="col-md-12 mt-3">
-                                    <button class="submit-btn">Sign In</button>
+                                    <button type="submit" class="submit-btn">Sign In</button>
                                 </div>
                                 <div class="col-md-12 mt-3" style="text-align: right;">
                                     <span>Forgot your password? <a href="#">Reset it here.</a></span>

@@ -1,6 +1,8 @@
-$(document).ready(function ($) {
+(function ($) {
     "use strict";
 
+    $(document).ready(function(){
+        
 
     /*==============================
         Nested jQuery Active List
@@ -846,6 +848,7 @@ $(document).ready(function ($) {
         });
         wow.init();
     }
+    })
 
 
 })(jQuery);
