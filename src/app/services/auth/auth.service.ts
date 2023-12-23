@@ -12,9 +12,19 @@ export class AuthService {
   apiUrl: string = environment.apiUrl;
   private currentUserSubject: BehaviorSubject<any> | any;
   public currentUser: any;
+  localUser: any = {};
 
   constructor(private http: HttpClient, public apiService: ApiService, public router: Router) {
     let ls = localStorage.getItem('currentUser');
+
+    if (ls !== null) {
+      this.localUser = JSON.parse(ls);
+      console.log(this.localUser)
+    } else {
+      // Handle the case where 'currentUser' is not found in localStorage
+      console.error('currentUser not found in localStorage');
+    }
+
     if (ls) {
       this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(ls));
       this.currentUser = this.currentUserSubject.asObservable();

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services';
+import { HelperService } from 'src/app/services';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,7 +12,7 @@ export class ProfileComponent {
   model: any = {};
   avatar: any;
   isEdit: boolean = false;
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService, public helperService: HelperService){}
 
   ngOnInit(){
     this.getProfile()
@@ -22,7 +23,6 @@ export class ProfileComponent {
       (response) => {
         console.log('respose: ', response)
         this.model = response.data;
-        this.getAvatar();
       },
       (error) => {
         console.log('error: ', error)
@@ -30,20 +30,10 @@ export class ProfileComponent {
     )
   }
 
-  getAvatar(){
-    this.apiService.callApi('assets', 'get', {}, this.model.avatar).subscribe(
-      (response) => {
-        this.avatar = response.data;
-        console.log(response)
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
-  }
 
   formSubmit(event:any){
     delete this.model['tfa_secret']
+    delete this.model['password']
     this.apiService.callApi('users/me', 'patch', this.model).subscribe(
       (response) => {
         console.log('user updated: ', response)

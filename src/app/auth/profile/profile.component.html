@@ -30,7 +30,8 @@
                 <div class="shop__details-images-wrap">
                     <div class="tab-content" id="imageTabContent">
                         <div class="tab-pane show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                            <a href="assets/img/products/shop_details01.jpg" class="popup-image"><img src="assets/img/products/shop_details01.jpg" alt="img"></a>
+                            <a *ngIf="this.model.id" href="{{helperService.getAvatarUrl()}}" class="popup-image"><img src="{{helperService.getAvatarUrl()}}"></a>
+                            <a *ngIf="!this.model.id" href="assets/img/logo/avatar.png" class="popup-image"><img src="assets/img/logo/avatar.png" alt="img"></a>
                         </div>
                     </div>
                 </div>

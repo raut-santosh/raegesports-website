@@ -60,14 +60,15 @@
                             <div class="nav-logo">
                                 <a href="/"><img src="assets/img/logo/logo1.png" alt="Logo"></a>
                             </div>
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <button class="nav-link">
-                                        <span class="img-shape"></span>
-                                        <!-- <img src="{{apiUrl + '/assets/' + this.model.avatar +'?access_token='+authService.currentUser.source._value.access_token}}" alt="User Avatar">                       -->
-                                    </button>
-                                </li>
-                            </ul>
+                            <div *ngIf="currentUserName != 'undefined undefined'" class="profile-image">
+                                <img src="{{helperService.getAvatarUrl()}}" alt="Profile Image">
+                                <b style="margin-left:20px;">{{currentUserName}}</b>
+                            </div>
+                            <div *ngIf="currentUserName == 'undefined undefined'" class="profile-image">
+                                <img src="assets/img/logo/avatar.avif" alt="Profile Image">
+                                <b style="margin-left:20px;">Guest User</b>
+                            </div>
+                            
                             <div class="tgmobile__search">
                                 <form action="#">
                                     <input type="text" placeholder="Search here...">

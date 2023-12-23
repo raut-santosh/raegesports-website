@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { HelperService } from 'src/app/services';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,13 +12,14 @@ export class LoginComponent {
 
   model: any = {};
 
-  constructor(private authService: AuthService, private router: Router){}
+  constructor(private authService: AuthService, private router: Router, private helperService:HelperService){}
 
   formSubmit(event:any){
     this.authService.login(this.model).subscribe(
       (response) => {
         console.log(response)
         if(response.data.access_token){
+          this.helperService.setCurrentUser();
           Swal.fire({
             icon: 'success',
             title: 'Login successful',
