@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService, HelperService } from 'src/app/services';
+import { AuthService, HelperService, ApiService } from 'src/app/services';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -10,7 +10,8 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent {
   model: any = {};
-  constructor(private authService: AuthService, private helperService:HelperService, private router:Router){}
+  otp: any;
+  constructor(private authService: AuthService, private helperService:HelperService, private router:Router, private apiService:ApiService){}
 
   formSubmit(event:any){
     this.authService.register(this.model).subscribe(
@@ -23,7 +24,7 @@ export class RegisterComponent {
           showConfirmButton: false, // Remove the "OK" button
           timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
         });
-        this.router.navigate(['/'])
+        this.router.navigate(['/auth/login'])
       }else{
         Swal.fire({
           icon: 'error',
@@ -47,4 +48,19 @@ export class RegisterComponent {
     )
   }
 
+  sendOtp(){
+    this.apiService.callApi('my-api/handleotp', 'post', this.model.otp).subscribe(
+      (response) => {
+        console.log(response)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
+  }
+
+
+  
+
 }
+

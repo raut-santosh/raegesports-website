@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services';
-import { HelperService } from 'src/app/services';
+import { AuthService } from 'src/app/services';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,24 +12,11 @@ export class ProfileComponent {
   model: any = {};
   avatar: any;
   isEdit: boolean = false;
-  constructor(private apiService: ApiService, public helperService: HelperService){}
+  constructor(private apiService: ApiService, public authService:AuthService){}
 
   ngOnInit(){
-    this.getProfile()
+    this.model = this.authService.currentUser.user;
   }
-
-  getProfile(){
-    this.apiService.callApi('users/me', 'get').subscribe(
-      (response) => {
-        console.log('respose: ', response)
-        this.model = response.data;
-      },
-      (error) => {
-        console.log('error: ', error)
-      }
-    )
-  }
-
 
   formSubmit(event:any){
     delete this.model['tfa_secret']

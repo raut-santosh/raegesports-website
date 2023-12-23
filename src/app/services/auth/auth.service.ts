@@ -1,126 +1,105 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environments';
-import { Router } from '@angular/router';
-import { ApiService } from '../api/api.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
+  private apiUrl = environment.apiUrl;
+  private localStorageKey = 'currentUser';
 
-  apiUrl: string = environment.apiUrl;
-  private currentUserSubject: BehaviorSubject<any> | any;
-  public currentUser: any;
-  localUser: any = {};
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient, public apiService: ApiService, public router: Router) {
-    let ls = localStorage.getItem('currentUser');
+  login({ email, password }: any): Observable<any> {
+    const body = {
+      email,
+      password
+    };
 
-    if (ls !== null) {
-      this.localUser = JSON.parse(ls);
-      console.log(this.localUser)
-    } else {
-      // Handle the case where 'currentUser' is not found in localStorage
-      console.error('currentUser not found in localStorage');
+    return this.http.post(`${this.apiUrl}/auth/login`, body).pipe(
+      tap(response => this.handleAuthentication(response)),
+      switchMap(() => this.getUserDetails()), // Fetch user details after login
+      catchError(error => throwError(error))
+    );
+  }
+
+  register({ first_name, last_name, location, email, mobile, password }: any): Observable<any> {
+    const body = {
+      first_name,
+      last_name,
+      location,
+      email,
+      mobile,
+      password
+    };
+
+    return this.http.post(`${this.apiUrl}/player/register`, body).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  refreshToken(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/refresh`, {}).pipe(
+      tap(response => this.handleAuthentication(response)),
+      catchError(error => throwError(error))
+    );
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.localStorageKey);
+  }
+
+  get currentUser(): any {
+    return JSON.parse(localStorage.getItem(this.localStorageKey) || '{}');
+  }
+
+  private handleAuthentication(response: any): void {
+    console.log('handling:', response);
+    const { access_token, expires, refresh_token, user } = response.data;
+
+    const currentUser = {
+      access_token,
+      expires,
+      refresh_token,
+      user
+    };
+
+    localStorage.setItem(this.localStorageKey, JSON.stringify(currentUser));
+  }
+
+  private getUserDetails(): Observable<any> {
+    const currentUser = this.currentUser;
+
+    if (!currentUser || !currentUser.access_token) {
+      return throwError('Access token is missing.');
     }
 
-    if (ls) {
-      this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(ls));
-      this.currentUser = this.currentUserSubject.asObservable();
-    } else {
-      this.currentUserSubject = new BehaviorSubject<any>(null);
-      this.currentUser = this.currentUserSubject.asObservable();
+    const headers = {
+      Authorization: `Bearer ${currentUser.access_token}`
+    };
+
+    return this.http.get(`${this.apiUrl}/users/me`, { headers }).pipe(
+      tap(userDetails => this.updateUserDetails(userDetails)),
+      catchError(error => throwError(error))
+    );
+  }
+
+  private updateUserDetails(userDetails: any): void {
+    const currentUser = this.currentUser;
+    currentUser.user = userDetails.data;  // Assuming the user details are inside 'data'
+    localStorage.setItem(this.localStorageKey, JSON.stringify(currentUser));
+  }
+
+  get getAvtar(){
+    if(this.currentUser.user){
+      return `${this.apiUrl}/assets/${this.currentUser.user.avatar}?access_token=${this.currentUser.access_token}`
+    }else{
+      return `assets/img/logo/avatar.png`
     }
-  }
-
-  public get currentUserValue(): any {
-    return this.currentUserSubject?.value;
-  }
-
-  login(params: any) {
-    console.log('login', this.apiUrl);
-    return this.http
-      .post<any>(
-        this.apiUrl + '/auth/login',
-        params
-      )
-      .pipe(
-        map((data) => {
-          if (data && data.data.access_token) {
-            console.log('added');
-            this._syncUser(data.data);
-          }
-          return data;
-        })
-      );
-  }
-
-
-  register(params: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    console.log(this.apiUrl);
-    console.log('register');
-    return this.http
-      .post<any>(
-        this.apiUrl + '/player/register?access_token=' + environment.access_token,
-        params,
-        { headers }
-      )
-      .pipe(
-        map((data) => {
-          return data;
-        })
-      );
-  }
-
-  refresh() {
-    
-    if (!this.currentUser || !this.currentUser.refresh_token) {
-      // No refresh_token found, cannot refresh
-      console.error('No refresh_token found in this.currentUser');
-      return;
-    }
-  
-    const refreshToken = this.currentUser.refresh_token;
-    const mode = 'refresh_mode';
-  
-    return this.http
-      .post<any>(
-        this.apiUrl + '/auth/refresh',
-        { refresh_token: refreshToken, mode: mode }
-      )
-      .pipe(
-        map((data) => {
-          if (data && data.data.access_token) {
-            console.log('Refreshed token added');
-            this._syncUser(data.data);
-          } else {
-            console.log('Token refresh failed');
-            // Token refresh failed, remove currentUser
-            this.logout();
-          }
-          return data;
-        })
-      );
-  }
-
-  logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    if (this.currentUserSubject) {
-      this.currentUserSubject.next(null);
-    }
-    this.router.navigate(['/auth/login']);
-  }
-
-  _syncUser(data: any) {
-    localStorage.setItem('currentUser', JSON.stringify(data));
-    if (this.currentUserSubject) {
-      this.currentUserSubject.next(data);
-    }
-    return true;
   }
 }

@@ -42,6 +42,6 @@ export class HelperService {
   }
   
   getAvatarUrl(){
-    return `${environment.apiUrl}/assets/${this.currentUserData.avatar}?access_token=${this.authService.localUser.access_token}`
+    // return `${environment.apiUrl}/assets/${this.currentUserData.avatar}?access_token=${this.authService.localUser.access_token}`
   }
 }
