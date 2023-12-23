@@ -1,31 +1,25 @@
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
 
-  
+  currentUserData: any = {};
 
-  constructor(private toastr: ToastrService) { }
+  constructor(private apiService: ApiService) { }
 
-  presentToast(type: 'success' | 'error' | 'info' = 'success', title: string = 'Notification', message: string): void {
-    switch (type) {
-      case 'success':
-        this.toastr.success(message, title);
-        break;
-      case 'error':
-        this.toastr.error(message, title);
-        break;
-      case 'info':
-        this.toastr.info(message, title);
-        break;
-      default:
-        // Default to success if an invalid type is provided
-        this.toastr.success(message, title);
-        break;
-    }
+  getUserData(){
+    this.apiService.callApi('users/me','get').subscribe(
+      (res) => {
+        console.log('setting user', res)
+        this.currentUserData = res.data;
+      },
+      (err) => {
+        console.log('error ', err);
+      }
+    )
   }
 
 }

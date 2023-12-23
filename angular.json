@@ -87,11 +87,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/ngx-toastr/toastr.css",
-              "node_modules/ngx-toastr/toastr-bs4-alert.scss",
-              "node_modules/ngx-toastr/toastr-bs5-alert.scss"
-
+              "src/styles.css"
             ],
             "scripts": [
             ]

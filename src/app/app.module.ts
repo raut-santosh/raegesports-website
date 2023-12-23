@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './services/auth/token.interceptor';
 import { AuthService } from './services/auth/auth.service';
@@ -22,8 +21,7 @@ import { AuthService } from './services/auth/auth.service';
     LayoutsModule,
     BrowserAnimationsModule,
     CommonModule,
-    HttpClientModule,
-    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
