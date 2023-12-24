@@ -1,6 +1,5 @@
 <!-- main-area -->
 <main class="main--area">
-
     <!-- breadcrumb-area -->
     <section class="breadcrumb-area breadcrumb__hide-img" data-background="assets/img/bg/breadcrumb_bg02.jpg">
         <div class="container">
@@ -12,7 +11,9 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">player profile</li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        player profile
+                                    </li>
                                 </ol>
                             </nav>
                         </div>
@@ -30,7 +31,8 @@
                 <div class="shop__details-images-wrap">
                     <div class="tab-content" id="imageTabContent">
                         <div class="tab-pane show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                            <a href="{{authService.getAvtar}}" class="popup-image"><img src="{{authService.getAvtar}}"></a>
+                            <a href="{{ authService.getAvtar }}" class="popup-image"><img
+                                    src="{{ authService.getAvtar }}" /></a>
                         </div>
                     </div>
                 </div>
@@ -43,20 +45,30 @@
                         <i class="fas fa-star"></i>
                         <span class="rating-count">( 3 Customer Review )</span>
                     </div> -->
-                    <li class="edit-btn-parent"><a (click)="toggleEdit()" class="edit-btn"><i
-                        class="flaticon-edit"></i>Edit Profile</a></li>
+                    <li class="edit-btn-parent">
+                        <a (click)="toggleEdit()" class="edit-btn">
+                            <i class="flaticon-edit"></i>
+                            Edit Profile
+                        </a>
+                    </li>
 
-                    <h2 class="title">{{model.first_name}} {{model.last_name}}</h2>
+                    <h2 class="title">
+                        {{ model.first_name || "Guest" }} {{ model.last_name || "User" }}
+                    </h2>
                     <div class="shop__details-price">
-                        <span class="amount"><span class="stock-status">Account Balance -</span> &#8377; {{model.balance}} </span>
+                        <span class="amount"><span class="stock-status">Account Balance -</span> &#8377;
+                            {{ model.balance }}
+                        </span>
                     </div>
                     <div class="shop__details-short-description">
-                        <p>{{model.description}}</p>
+                        <p>{{ model.description }}</p>
                     </div>
-                    <div class="shop__details-model d-flex align-items-center">
+                    <div *ngIf="model.tags" class="shop__details-model d-flex align-items-center">
                         <p class="model m-0">Tags:</p>
                         <ul class="list-wrap d-flex align-items-center">
-                            <li *ngFor="let t of model.tags; let i=index;" [class.active]="i === 0">{{t}}</li>
+                            <li *ngFor="let t of model.tags; let i = index" [class.active]="i === 0">
+                                {{ t }}
+                            </li>
                         </ul>
                     </div>
                     <!-- <div class="shop__details-qty">
@@ -74,15 +86,15 @@
                     <div class="shop__details-bottom">
                         <div *ngIf="model.email" class="posted_in">
                             <b>Email :</b>
-                            <a>{{model.email}}</a>
+                            <a>{{ model.email }}</a>
                         </div>
                         <div *ngIf="model.location" class="tagged_as">
                             <b>Location :</b>
-                            <a>{{model.location}}</a>
+                            <a>{{ model.location }}</a>
                         </div>
                         <div *ngIf="model.mobile" class="tagged_as">
                             <b>Mobile :</b>
-                            <a>{{model.mobile}}</a>
+                            <a>{{ model.mobile }}</a>
                         </div>
                         <!-- <div class="product_share">
                             <b>Share :</b>
@@ -90,6 +102,7 @@
                             <a href="shop.html"><i class="fab fa-twitter"></i></a>
                             <a href="shop.html"><i class="fab fa-instagram"></i></a>
                         </div> -->
+                        <a routerLink="/auth/changePassword" class="tg-btn-1 -btn-yellow"><span style="color:black;font-weight: bold;">Change password</span></a>
                     </div>
                 </div>
             </div>
@@ -139,58 +152,74 @@
                                     </tbody>
                                 </table>
                             </div> -->
-                            <div class="tab-pane animation-none fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                            <div class="tab-pane animation-none fade show active" id="reviews" role="tabpanel"
+                                aria-labelledby="reviews-tab">
                                 <div class="product__desc-review text-center">
                                     <div class="product__desc-review-title mb-15">
                                         <h5 class="title">Edit Profile</h5>
+                                        <div class="profile-img">
+                                            <label for="fileInput" class="file-label">
+                                                <img id="profileImage" class="edit-profile-img" [src]="imgUrl"
+                                                    alt="Profile image" />
+                                                <!-- <i class="bi bi-pencil-square edit-icon"></i> -->
+                                            </label>
+                                            <input type="file" id="fileInput" class="file-input" accept="image/*"
+                                                style="display: none" (change)="updateAvtar($event)" />
+                                        </div>
                                     </div>
                                     <div class="contact__form-wrap">
                                         <form (ngSubmit)="formSubmit($event)" id="contact-form" method="POST">
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.first_name" name="first_name" id="first_name"
-                                                            type="text" class="form-control" placeholder="First Name *" required
-                                                            tabindex="1">
+                                                        <input [(ngModel)]="model.first_name" name="first_name"
+                                                            id="first_name" type="text" class="form-control"
+                                                            placeholder="First Name *" required tabindex="1" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.last_name" name="last_name" id="last_name" type="text"
-                                                            class="form-control" placeholder="Last Name *" required tabindex="2">
+                                                        <input [(ngModel)]="model.last_name" name="last_name"
+                                                            id="last_name" type="text" class="form-control"
+                                                            placeholder="Last Name *" required tabindex="2" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.location" name="location" id="location" type="text"
-                                                            class="form-control" placeholder="Location" tabindex="3">
+                                                        <input [(ngModel)]="model.location" name="location"
+                                                            id="location" type="text" class="form-control"
+                                                            placeholder="Location" tabindex="3" />
                                                     </div>
                                                 </div>
-                
+
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.mobile" name="mobile" id="mobile" type="number"
-                                                            class="form-control" placeholder="Mobile *" required tabindex="4">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.email" name="email" id="email" type="email"
-                                                            class="form-control" placeholder="Email *" required tabindex="5">
+                                                        <input [(ngModel)]="model.mobile" name="mobile" id="mobile"
+                                                            type="number" class="form-control" placeholder="Mobile *"
+                                                            required tabindex="4" />
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.password" name="password" id="password"
-                                                            type="password" class="form-control" placeholder="Password *" required
-                                                            tabindex="6">
+                                                        <input [(ngModel)]="model.email" name="email" id="email"
+                                                            type="email" class="form-control" placeholder="Email *"
+                                                            required tabindex="5" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="form-group input-grp">
+                                                        <input [(ngModel)]="model.date_of_birth" name="date_of_birth"
+                                                            id="date_of_birth" type="date" class="form-control"
+                                                            placeholder="Date of birth " tabindex="6" />
                                                     </div>
                                                 </div>
                                             </div>
-                
+
                                             <div class="row">
                                                 <div class="col-md-12 mt-3">
-                                                    <button type="submit" class="submit-btn">Update profile</button>
+                                                    <button type="submit" class="submit-btn">
+                                                        Update profile
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -276,6 +305,5 @@
         </div>
     </section>
     <!-- shop-area-end -->
-
 </main>
 <!-- main-area-end -->

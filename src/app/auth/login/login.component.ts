@@ -32,7 +32,7 @@ export class LoginComponent {
         Swal.fire({
           icon: 'error',
           title: error.code,
-          text: 'error while login',
+          text: 'Email or Password Invalid',
           showConfirmButton: false, // Remove the "OK" button
           timer: 2000 
         })

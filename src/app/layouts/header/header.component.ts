@@ -10,11 +10,11 @@ import { environment } from 'src/environments/environments';
 export class HeaderComponent {
   model: any = {};
   apiUrl = environment.apiUrl;
-  currentUserName: any;
-  constructor(private apiService:ApiService, public helperService: HelperService,public authService: AuthService){}
+
+  constructor(private apiService:ApiService,public authService: AuthService){}
   ngOnInit(){
-    this.model = this.helperService.getCurrentUser();
-    this.currentUserName = this.model.first_name + ' ' + this.model.last_name;
+    
   }
+
  
 }

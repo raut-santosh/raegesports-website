@@ -60,13 +60,9 @@
                             <div class="nav-logo">
                                 <a href="/"><img src="assets/img/logo/logo1.png" alt="Logo"></a>
                             </div>
-                            <div *ngIf="currentUserName != 'undefined undefined'" class="profile-image">
-                                <img src="{{helperService.getAvatarUrl()}}" alt="Profile Image">
-                                <b style="margin-left:20px;">{{currentUserName}}</b>
-                            </div>
-                            <div *ngIf="currentUserName == 'undefined undefined'" class="profile-image">
-                                <img src="assets/img/logo/avatar.avif" alt="Profile Image">
-                                <b style="margin-left:20px;">Guest User</b>
+                            <div class="profile-image">
+                                <img src="{{authService.getAvtar}}" alt="Profile Image">
+                                <b style="margin-left:20px;">{{authService.currentUser?.user.first_name+' '+authService.currentUser?.user.last_name}}</b>
                             </div>
                             
                             <div class="tgmobile__search">

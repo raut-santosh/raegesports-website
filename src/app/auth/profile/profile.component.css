@@ -32,3 +32,36 @@ input[type="number"] {
 .product__desc-wrap{
   margin:none;
 }
+
+/* CSS */
+.profile-img {
+  width: 200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.edit-profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.edit-icon {
+  position: absolute;
+  right: 26%;
+  top: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* Additional styling for the file input label */
+.file-label {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+/* Hide the default file input styling */
+.file-input {
+  display: none;
+}

@@ -5,7 +5,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
@@ -16,28 +16,35 @@ export class AuthService {
   login({ email, password }: any): Observable<any> {
     const body = {
       email,
-      password
+      password,
     };
 
     return this.http.post(`${this.apiUrl}/auth/login`, body).pipe(
-      tap(response => this.handleAuthentication(response)),
+      tap((response) => this.handleAuthentication(response)),
       switchMap(() => this.getUserDetails()), // Fetch user details after login
-      catchError(error => throwError(error))
+      catchError((error) => throwError(error))
     );
   }
 
-  register({ first_name, last_name, location, email, mobile, password }: any): Observable<any> {
+  register({
+    first_name,
+    last_name,
+    location,
+    email,
+    mobile,
+    password,
+  }: any): Observable<any> {
     const body = {
       first_name,
       last_name,
       location,
       email,
       mobile,
-      password
+      password,
     };
 
     return this.http.post(`${this.apiUrl}/player/register`, body).pipe(
-      map(data => {
+      map((data) => {
         return data;
       })
     );
@@ -45,8 +52,8 @@ export class AuthService {
 
   refreshToken(): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/refresh`, {}).pipe(
-      tap(response => this.handleAuthentication(response)),
-      catchError(error => throwError(error))
+      tap((response) => this.handleAuthentication(response)),
+      catchError((error) => throwError(error))
     );
   }
 
@@ -55,8 +62,12 @@ export class AuthService {
   }
 
   get currentUser(): any {
-    return JSON.parse(localStorage.getItem(this.localStorageKey) || '{}');
+    const storedUser = localStorage.getItem(this.localStorageKey);
+    
+    // If currentUser is not available in storage, return a fake object
+    return storedUser ? JSON.parse(storedUser) : { user: { first_name: "Guest", last_name: "User" } };
   }
+  
 
   private handleAuthentication(response: any): void {
     console.log('handling:', response);
@@ -66,7 +77,7 @@ export class AuthService {
       access_token,
       expires,
       refresh_token,
-      user
+      user,
     };
 
     localStorage.setItem(this.localStorageKey, JSON.stringify(currentUser));
@@ -80,26 +91,41 @@ export class AuthService {
     }
 
     const headers = {
-      Authorization: `Bearer ${currentUser.access_token}`
+      Authorization: `Bearer ${currentUser.access_token}`,
     };
 
     return this.http.get(`${this.apiUrl}/users/me`, { headers }).pipe(
-      tap(userDetails => this.updateUserDetails(userDetails)),
-      catchError(error => throwError(error))
+      tap((userDetails) => this.updateUserDetails(userDetails)),
+      catchError((error) => throwError(error))
     );
   }
 
   private updateUserDetails(userDetails: any): void {
     const currentUser = this.currentUser;
-    currentUser.user = userDetails.data;  // Assuming the user details are inside 'data'
+    currentUser.user = userDetails.data; // Assuming the user details are inside 'data'
     localStorage.setItem(this.localStorageKey, JSON.stringify(currentUser));
   }
 
-  get getAvtar(){
-    if(this.currentUser.user){
-      return `${this.apiUrl}/assets/${this.currentUser.user.avatar}?access_token=${this.currentUser.access_token}`
-    }else{
-      return `assets/img/logo/avatar.png`
+  get getAvtar() {
+    if (this.currentUser && this.currentUser.user && this.currentUser.user.avatar) {
+      return `${this.apiUrl}/assets/${this.currentUser.user.avatar}?access_token=${this.currentUser.access_token}`;
+    } else {
+      return `assets/img/logo/avatar.png`;
     }
+  }
+  
+
+  updateAvatar(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const fileId = this.currentUser.user.avatar;
+      const patchEndpoint = `${this.apiUrl}/files/${fileId}`;
+      // Perform the PATCH request
+      return this.http.patch(patchEndpoint, formData).pipe(
+        catchError((error) => {
+          console.error('Error updating file:', error);
+          return throwError(error);
+        })
+      );
   }
 }

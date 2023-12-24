@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 import { HelperService } from '../services';
 import { ProfileComponent } from './profile/profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,
