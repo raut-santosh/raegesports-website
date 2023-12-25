@@ -24,7 +24,7 @@ export class LoginComponent {
             showConfirmButton: false, // Remove the "OK" button
             timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
           });
-            this.router.navigate(['/auth/profile'])
+          this.router.navigate(['/auth/profile'])
         }
       },
       (error) => {

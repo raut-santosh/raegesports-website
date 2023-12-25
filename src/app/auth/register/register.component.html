@@ -70,12 +70,23 @@
                                             tabindex="6">
                                     </div>
                                 </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group input-grp">
+                                        <input [(ngModel)]="model.otp" name="otp" id="otp" type="number"
+                                            class="form-control" placeholder="4 digit otp *" required tabindex="7">
+                                    </div>
+                                    <div *ngIf="otpSent" class="mt-2">
+                                        Send otp after: {{ formatTimer(countdown) }}
+                                    </div>
+                                </div>
+                                
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12 mt-3 d-flex justify-content-between">
-                                    <!-- <button type="button" (click)="sendOtp()" class="submit-btn">Send Otp</button> -->
-                                    <button type="submit" class="submit-btn">Register</button>
+                                    <span *ngIf="!otpSent"><button  type="button" class="btn btn-primary" (click)="sendOtp()">Send Otp</button></span>
+                                    <span *ngIf="otpSent"><button type="button" class="btn btn-primary" (click)="verifyOtp()">Verify Otp</button></span>
+                                    <button *ngIf="isVerified" type="submit" class="submit-btn">Register</button>
                                 </div>
                                 
                                 <div class="col-md-12 mt-3" style="text-align: right;">

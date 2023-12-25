@@ -100,7 +100,7 @@ export class AuthService {
     );
   }
 
-  private updateUserDetails(userDetails: any): void {
+  public updateUserDetails(userDetails: any): void {
     const currentUser = this.currentUser;
     currentUser.user = userDetails.data; // Assuming the user details are inside 'data'
     localStorage.setItem(this.localStorageKey, JSON.stringify(currentUser));

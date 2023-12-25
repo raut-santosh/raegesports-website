@@ -16,14 +16,16 @@ export class ProfileComponent {
   imgUrl:any;
   constructor(private apiService: ApiService, public authService:AuthService, private router:Router){
    this.imgUrl = authService.getAvtar;
+   this.model = this.authService.currentUser.user ? this.authService.currentUser.user: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
+    console.log(this.authService.currentUser)
   }
 
   ngOnInit(){
-    this.model = this.authService.currentUser.user ? this.authService.currentUser.user: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
   }
 
   formSubmit(event:any){
     delete this.model['tfa_secret']
+    delete this.model['password']
     this.apiService.callApi('users/me', 'patch', this.model).subscribe(
       (response) => {
         console.log('user updated: ', response)
@@ -33,6 +35,7 @@ export class ProfileComponent {
           showConfirmButton: false, // Remove the "OK" button
           timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
         });
+        this.authService.updateUserDetails(response)
         this.isEdit = false;
       },
       (error) => {
