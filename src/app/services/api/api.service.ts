@@ -1,7 +1,6 @@
-import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 
 @Injectable({
@@ -23,40 +22,29 @@ export class ApiService {
 
     if (method === 'get') {
       const queryParams = new HttpParams({ fromObject: params });
-      return this.http.get(url, { params: queryParams }).pipe(catchError(this.handleError));
+      return this.http.get(url, { params: queryParams });
     } else if (method === 'post') {
       if (files) {
         const formData = new FormData();
         for (let i = 0; i < files.length; i++) {
           formData.append('files', files[i], files[i].name);
         }
-        return this.http.post(url, formData).pipe(catchError(this.handleError));
+        return this.http.post(url, formData);
       } else {
-        return this.http.post(url, params).pipe(catchError(this.handleError));
+        return this.http.post(url, params);
       }
     } else if (method === 'put') {
-      return this.http.put(url, params).pipe(catchError(this.handleError));
+      return this.http.put(url, params);
     } else if (method === 'patch') {
-      return this.http.patch(url, params).pipe(catchError(this.handleError));
+      return this.http.patch(url, params);
     } else if (method === 'delete') {
-      return this.http.delete(url).pipe(catchError(this.handleError));
+      return this.http.delete(url);
     } else {
       throw new Error(`Invalid API method for ${endpoint}`);
     }
   }
 
   public downloadFile(url: string): Observable<Blob> {
-    return this.http.get(url, { responseType: 'blob' }).pipe(catchError(this.handleError));
+    return this.http.get(url, { responseType: 'blob' });
   }
-
-  private handleError(error: HttpErrorResponse): Observable<any> {
-    let errorMessage = 'An error occurred';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Client-side error: ${error.error.message}`;
-    } else {
-      errorMessage = `Server-side error: ${error.status}, ${error.error || 'Unknown error'}`;
-    }
-    return throwError({ success: false, message: errorMessage });
-  }
-  
 }
