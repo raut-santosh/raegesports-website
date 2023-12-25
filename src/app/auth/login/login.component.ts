@@ -14,6 +14,7 @@ export class LoginComponent {
   constructor(public authService: AuthService, private router: Router){}
 
   formSubmit(event:any){
+    console.log('model;',this.model)
     this.authService.login(this.model).subscribe(
       (response) => {
         console.log(response)

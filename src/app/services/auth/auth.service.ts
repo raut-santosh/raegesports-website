@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environments';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
   private localStorageKey = 'currentUser';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router:Router) {}
 
   login({ email, password }: any): Observable<any> {
     const body = {
@@ -59,6 +60,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.localStorageKey);
+    this.router.navigate(['/auth/login'])
   }
 
   get currentUser(): any {

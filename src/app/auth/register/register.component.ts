@@ -76,7 +76,7 @@ export class RegisterComponent {
       message: `Here is your 4 digit otp ${this.otp}`,
       type: 'otp'
     }
-    this.apiService.callApi('my-api/sendmail', 'get', payload).subscribe(
+    this.apiService.callApi('my-api/sendmail', 'post', payload).subscribe(
       (response) => {
         if(response.success){
           this.otpSent = true;
