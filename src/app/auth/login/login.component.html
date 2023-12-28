@@ -29,21 +29,27 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-12">
                     <div class="contact__form-wrap">
-                        <form (ngSubmit)="formSubmit($event)" id="contact-form" method="POST">
+                        <form [formGroup]="loginForm" (ngSubmit)="formSubmit()" id="contact-form" method="POST">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="input-grp">
-                                        <input [(ngModel)]="model.email" name="email" type="email" placeholder="Email *" required>
-                                    </div>
-                                    <div class="input-grp">
-                                        <input [(ngModel)]="model.password" name="password" type="password" placeholder="Password *" required>
-                                    </div>
+                                    <div class="input-grp" *ngFor="let item of formData;">
+                                        <div class="password-input-wrapper">
+                                          <input [formControlName]="item.name" [type]="item.name === 'password' ? (isPasswordVisible ? 'text' : 'password') : 'text'" [placeholder]="item.placeholder" required>
+                                          <!-- Show the eye icon only for the password field -->
+                                          <i *ngIf="item.name === 'password'" class="password-toggle-icon bi" [ngClass]="{'bi-eye': !isPasswordVisible, 'bi-eye-slash': isPasswordVisible}" (click)="togglePasswordVisibility()"></i>
+                                        </div>
+                                        <div *ngIf="loginForm.get(item.name)?.hasError('required') && (loginForm.get(item.name)?.touched || loginForm.get(item.name)?.dirty)" class="error-msg">
+                                          {{item.emptyErrorMsg || "This field cannot be empty"}}
+                                        </div>
+                                        <div *ngIf="loginForm.get(item.name)?.hasError('pattern') && loginForm.get(item.name)?.dirty" class="error-msg">
+                                          {{item.errorMsg || "Please enter a valid " + item.name}}
+                                        </div>
+                                      </div>
                                 </div>
                             </div>
-                            
-                           <div class="row">
+                            <div class="row">
                                 <div class="col-md-12 mt-3">
-                                    <button type="submit" class="submit-btn">Sign In</button>
+                                    <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">Sign In</button>
                                 </div>
                                 <div class="col-md-12 mt-3" style="text-align: right;">
                                     <span>Forgot your password? <a href="#">Reset it here.</a></span>
