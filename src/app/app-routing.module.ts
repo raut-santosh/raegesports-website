@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'tournament/:id',
-    component: TournamentDetailsComponent
+    component: TournamentsComponent
   }
 ];
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,7 +34,8 @@ import { TournamentDetailsComponent } from './components/tournament-details/tour
     useClass: TokenInterceptor,
     multi: true
   },
-  AuthService
+  AuthService,
+  DatePipe
 ],
   bootstrap: [AppComponent]
 })
