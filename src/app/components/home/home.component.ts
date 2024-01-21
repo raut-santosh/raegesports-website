@@ -9,10 +9,13 @@ import { environment } from 'src/environments/environments';
 export class HomeComponent {
   games: any[] = [];
   apiUrl: string = environment.apiUrl;
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService){
+    this.getGames();
+
+  }
 
   ngOnInit() {
-    this.getGames();
+    // this.getGames();
   }
 
   getGames(){
