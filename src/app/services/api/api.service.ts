@@ -44,6 +44,19 @@ export class ApiService {
     }
   }
 
+  public get(collection: string, itemId: string | null = null, params: any = {}): Observable<any> {
+    let url = `${this.apiUrl}/items/${collection}`;
+    
+    if (itemId) {
+      url += `/${itemId}`;
+    }
+  
+    const queryParams = new HttpParams({ fromObject: params });
+  
+    return this.http.get(url, { params: queryParams });
+  }
+  
+
   public downloadFile(url: string): Observable<Blob> {
     return this.http.get(url, { responseType: 'blob' });
   }

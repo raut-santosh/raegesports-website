@@ -3029,6 +3029,7 @@ Default Tab Style
   display: -webkit-flex;
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #121a23;
   background-image: -moz-linear-gradient(90deg, rgb(12, 14, 18) 0%, rgb(16, 24, 31) 100%);
   background-image: -webkit-linear-gradient(90deg, rgb(12, 14, 18) 0%, rgb(16, 24, 31) 100%);
@@ -3074,7 +3075,8 @@ Default Tab Style
   font-size: 18px;
   line-height: 1;
   padding: 11px 14px;
-  margin-left: auto;
+  /* margin-left: auto; */
+  margin-left: 0;
 }
 .nft-item__price .bid-btn:hover {
   background: var(--tg-theme-primary);
@@ -10123,4 +10125,12 @@ blockquote p {
 /*# sourceMappingURL=main.css.map */
 .error-msg{
   color: rgb(249, 50, 50);
+}
+
+
+.truncate-paragraph {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Limit to 1 line */
+  -webkit-box-orient: vertical;
 }
