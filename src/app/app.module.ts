@@ -13,6 +13,7 @@ import { AuthService } from './services/auth/auth.service';
 import { AboutComponent } from './components/about/about.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { TournamentDetailsComponent } from './components/tournament-details/tournament-details.component';
+import { ErrorInterceptor } from './services/auth/error.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { TournamentDetailsComponent } from './components/tournament-details/tour
     useClass: TokenInterceptor,
     multi: true
   },
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   AuthService,
   DatePipe
 ],

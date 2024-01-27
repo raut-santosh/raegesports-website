@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center mt-3">
-                                    <button (click)="selectGame(game.id)" class="shop__details-cart-btn">{{selectedGame===game.id ? 'selected':'select'}}</button>
+                                    <button [ngClass]="{'active': selectedGame === game.id}" (click)="selectGame(game.id)" class="shop__details-cart-btn">{{selectedGame===game.id ? 'selected':'select'}}</button>
                                 </div>
                             </div>
                             <!-- <div class="tournament__box-prize">

@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
             if (err.status === 401) {
                 // auto logout if 401 response returned from api
-                // this.authService.logout();
+                this.authService.logout();
                 // this.helperService.storage_clear();
                  location.href="/";
             }

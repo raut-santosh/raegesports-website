@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services';
 import { AuthService } from 'src/app/services';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
 import Swal from 'sweetalert2';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -14,14 +17,33 @@ export class ProfileComponent {
   avatar: any;
   isEdit: boolean = false;
   imgUrl:any;
-  constructor(private apiService: ApiService, public authService:AuthService, private router:Router){
+  tournaments: any = [];
+  countdowns: string[] = [];
+  private countdownSubscription!: Subscription;
+
+
+  constructor(public datePipe: DatePipe,private apiService: ApiService, public authService:AuthService, private router:Router){
    this.imgUrl = authService.getAvtar;
    this.model = this.authService.currentUser.user ? this.authService.currentUser.user: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
     console.log(this.authService.currentUser)
   }
 
   ngOnInit(){
+    this.participatedTournaments();
+    // Subscribe to the countdown
+    this.countdownSubscription = interval(1000).subscribe(() => {
+      this.updateCountdowns();
+    });
+    
   }
+
+  ngOnDestroy() {
+    // Unsubscribe from the countdown subscription to avoid memory leaks
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
+  }
+  
 
   formSubmit(event:any){
     delete this.model['tfa_secret']
@@ -76,6 +98,35 @@ export class ProfileComponent {
    )
   }
   
+  participatedTournaments(){
+    this.apiService.callApi('/items/tournaments_directus_users?fields=*,tournaments_id.*,directus_users_id.*','get').subscribe(
+      res => {
+        console.log(res)
+        this.tournaments = res.data;
+      }
+    )
+  }
+
+  calculateCountdown(start_date: string): string {
+    const parsedStartDate = new Date(start_date);
+    const now = new Date();
+    const timeDifference = parsedStartDate.getTime() - now.getTime();
   
+    if (timeDifference > 0) {
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+  
+      return `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+    } else {
+      return 'End';
+    }
+  }
+  updateCountdowns() {
+    // Update the countdowns for each tournament
+    this.countdowns = this.tournaments.map((tournament:any) => this.calculateCountdown(tournament.tournaments_id.start_date));
+  }
+    
   
 }

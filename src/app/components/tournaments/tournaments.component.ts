@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environments';
 import { DatePipe } from '@angular/common';
 import { interval, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,7 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   countdowns: string[] = [];
   private countdownSubscription!: Subscription;
 
-  constructor(private apiService: ApiService,private authService:AuthService, public datePipe: DatePipe, private route: ActivatedRoute) {
+  constructor(private router: Router,private apiService: ApiService,private authService:AuthService, public datePipe: DatePipe, private route: ActivatedRoute) {
     this.getGames();
     this.route.params.subscribe(params => {
       // Extract the id from the route parameters
@@ -138,6 +139,18 @@ export class TournamentsComponent implements OnInit, OnDestroy {
           }
         );
                
+      }else{
+        Swal.fire({
+          title: 'Your not logged in!',
+          text: 'login first to participate in tournament',
+          icon: 'warning', // success, error, warning, info, or 'question'
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#3085d6',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/auth/login'])
+          }
+        }); 
       }
     }else{
 
