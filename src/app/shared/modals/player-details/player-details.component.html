@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="d-flex justify-content-end align-items-center mt-3" style="height:30px;">
+        <i class="bi bi-x-square" (click)="closeModal(false)"></i>
+    </div>
+    <section>
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-12">
+                  <div class="contact__form-wrap">
+                      <form id="contact-form" method="POST">
+                          <div class="row">
+                            <form>
+                                <div class="mb-3 text-center">
+                                    <h6>Please Provide following details</h6>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="in_game_username" class="form-label">In-Game Username:</label>
+                                  <input type="text" placeholder="Your in game username" class="form-control" id="in_game_username" name="game_username" [(ngModel)]="model.game_username" required>
+                                </div>
+                        
+                                <div class="mb-3">
+                                  <label for="in_game_id" class="form-label">In-Game ID:</label>
+                                  <input type="text" placeholder="Your in game id" class="form-control" id="in_game_id" name="in_game_id" [(ngModel)]="model.in_game_id" required>
+                                </div>
+                              </form>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12  mb-3 d-flex justify-content-around align-items-center flex-wrap">
+                                  <button type="button" class="shop__details-cart-btn mt-3" (click)="closeModal(true)">Save</button>
+                                  <button type="button" class="shop__details-cart-btn mt-3" (click)="closeModal(false)">Cancel</button>
+                              </div>
+                         </div>
+                         <div class="row">
+                         </div>
+                      </form>
+                      <p class="ajax-response"></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  </div>

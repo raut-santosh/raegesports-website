@@ -14,6 +14,9 @@ import { AboutComponent } from './components/about/about.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { TournamentDetailsComponent } from './components/tournament-details/tournament-details.component';
 import { ErrorInterceptor } from './services/auth/error.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +31,9 @@ import { ErrorInterceptor } from './services/auth/error.interceptor';
     LayoutsModule,
     BrowserAnimationsModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    SharedModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

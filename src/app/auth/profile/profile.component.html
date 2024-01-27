@@ -96,7 +96,15 @@
                             <b>Mobile :</b>
                             <a>{{ model.mobile }}</a>
                         </div>
-                        <div  class="tagged_as">
+                        <div *ngIf="model.in_game_id" class="tagged_as">
+                            <b>In Game Id :</b>
+                            <a>{{ model.in_game_id }}</a>
+                        </div>
+                        <div *ngIf="model.game_username" class="tagged_as">
+                            <b>In Game Username:</b>
+                            <a>{{ model.game_username }}</a>
+                        </div>
+                        <div class="tagged_as">
                             <b>DOB :</b>
                             <a>{{ model.date_of_birth }}</a>
                         </div>

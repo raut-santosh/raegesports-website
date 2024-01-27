@@ -44,6 +44,8 @@
   font-weight: normal;
   font-style: normal;
 }
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
 :root {
   --tg-body-font-family: 'Poppins', sans-serif;
   --tg-heading-font-family: 'Barlow', sans-serif;
