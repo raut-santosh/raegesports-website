@@ -237,13 +237,13 @@ export class RegisterComponent {
   
     if (allRequiredFieldsValidated) {
       // Generate and send OTP
-      this.otp = Math.floor(1000 + Math.random() * 9000).toString();
+      this.otp = this.encodeNumber(Math.floor(1000 + Math.random() * 9000).toString());
       this.countdown = 120;
-  
+      
       const payload = {
         email: this.model.email,
         subject: "Otp for registration",
-        message: `Here is your 4 digit otp ${this.otp}`,
+        otp: this.otp,
         type: 'otp'
       };
   
@@ -324,5 +324,10 @@ export class RegisterComponent {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+  }
+
+  encodeNumber(number:any, key:any = 2137) {
+    const encoded = number ^ key; // XOR operation
+    return encoded;
   }
 }
