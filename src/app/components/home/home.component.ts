@@ -8,10 +8,11 @@ import { environment } from 'src/environments/environments';
 })
 export class HomeComponent {
   games: any[] = [];
+  members: any[] = [];
   apiUrl: string = environment.apiUrl;
   constructor(private apiService: ApiService){
     this.getGames();
-
+    this.getMembers();
   }
 
   ngOnInit() {
@@ -22,6 +23,13 @@ export class HomeComponent {
     this.apiService.get('games', null, ).subscribe(res => {
       console.log(res);
       this.games = res.data;
+    });
+  }
+
+  getMembers(){
+    this.apiService.get('members', null, ).subscribe(res => {
+      console.log(res);
+      this.members = res.data;
     });
   }
 }
