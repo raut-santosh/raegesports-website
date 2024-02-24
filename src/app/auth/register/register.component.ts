@@ -1,10 +1,7 @@
-// register.component.ts
-
 import { Component } from '@angular/core';
-import { AuthService, HelperService, ApiService } from 'src/app/services';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services';
 import Swal from 'sweetalert2';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +13,7 @@ export class RegisterComponent {
   otp: any;
   isVerified: boolean = false;
   otpSent: boolean = false;
+  isRegistred: boolean = false;
   countdown: number = 120; // Initial countdown value in seconds
   private isSubmitting: boolean = false;
   private timerId: any;
@@ -93,7 +91,7 @@ export class RegisterComponent {
     },
   ];
 
-  constructor(private authService: AuthService, private helperService: HelperService, private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: ApiService) { }
 
   
   validateField(field: any) {
@@ -116,27 +114,27 @@ export class RegisterComponent {
       }
     }
   
-    if (!this.isSubmitting && field.name === 'otp') {
-      if (fieldValue.length === 4) {
-        if (fieldValue === this.otp) {
-          field.validated = true;
-          this.isVerified = true;
-          field.isValidationError = false;
-          this.isSubmitting = true; // Set the flag to indicate form submission
-          this.formSubmit(null);
-          return;
-        } else {
-          field.validated = false;
-          field.isValidationError = true;
-          Swal.fire({
-            icon: 'error',
-            title: 'Invalid Otp',
-            showConfirmButton: false,
-            timer: 2000
-          });
-        }
-      }
-    }
+    // if (!this.isSubmitting && field.name === 'otp') {
+    //   if (fieldValue.length === 4) {
+    //     if (fieldValue === this.otp) {
+    //       field.validated = true;
+    //       this.isVerified = true;
+    //       field.isValidationError = false;
+    //       this.isSubmitting = true; // Set the flag to indicate form submission
+    //       this.formSubmit(null);
+    //       return;
+    //     } else {
+    //       field.validated = false;
+    //       field.isValidationError = true;
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: 'Invalid Otp',
+    //         showConfirmButton: false,
+    //         timer: 2000
+    //       });
+    //     }
+    //   }
+    // }
 
   
     if (field.validated && field.regex) {
@@ -175,20 +173,16 @@ export class RegisterComponent {
   formSubmit(event: any) {
     this.formData.forEach(field => this.validateField(field));
     this.isSubmitting = true; 
-
+    
     if (this.formData.every(field => field.validated || !field.required)) {
-      if (this.isVerified) {
-        this.authService.register(this.model).subscribe(
+        this.apiService.auth('register', this.model).subscribe(
           (response) => {
             console.log('registred', response)
             if (response.success) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Registration successful',
-                showConfirmButton: false,
-                timer: 2000
-              });
-              this.router.navigate(['/auth/login'])
+              this.model.id = response.data;
+              this.sendOtp();
+              this.otpSent = true;
+              this.isRegistred = true;
             } else {
               Swal.fire({
                 icon: 'error',
@@ -210,15 +204,6 @@ export class RegisterComponent {
             })
           }
         )
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: "Invalid Otp",
-          text: 'Please verify otp first',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      }
     } else {
       Swal.fire({
         icon: 'error',
@@ -236,18 +221,16 @@ export class RegisterComponent {
     const allRequiredFieldsValidated = requiredFields.every(field => field.validated);
   
     if (allRequiredFieldsValidated) {
+      this.otpSent = false;
       // Generate and send OTP
-      this.otp = this.encodeNumber(Math.floor(1000 + Math.random() * 9000).toString());
       this.countdown = 120;
       
       const payload = {
         email: this.model.email,
-        subject: "Otp for registration",
-        otp: this.otp,
-        type: 'otp'
+        userId: this.model.id
       };
   
-      this.apiService.callApi('my-api/sendmail', 'post', payload).subscribe(
+      this.apiService.auth('sendotp', payload).subscribe(
         (response) => {
           if (response.success) {
             // Update UI or perform additional actions if needed
@@ -256,7 +239,7 @@ export class RegisterComponent {
           } else {
             Swal.fire({
               icon: 'error',
-              title: 'Email already exists',
+              title: 'Something is wrong',
               text: response.message,
               showConfirmButton: false,
               timer: 2000
@@ -301,14 +284,34 @@ export class RegisterComponent {
   }
 
   verifyOtp() {
-    if (this.model.otp === parseInt(this.otp)) {
-      Swal.fire({
-        icon: 'success',
-        title: "Otp Verified",
-        showConfirmButton: false,
-        timer: 2000
-      })
-      this.isVerified = true;
+    if (this.model.otp) {
+      let payload = {
+        userId: this.model.id,
+        otp: parseInt(this.model.otp)
+      }
+      this.apiService.auth('verifyotp', payload).subscribe(
+        (response)=>{
+          if(response.success){
+            Swal.fire({
+              icon: 'success',
+              title: "Otp Verified",
+              showConfirmButton: false,
+              timer: 2000
+            }).then(
+              ()=>this.router.navigate(['/auth/login'])
+            ).catch()
+            this.isVerified = true;
+            this.clearTimer();
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: "Invalid Otp",
+              showConfirmButton: false,
+              timer: 2000
+            })
+          }
+        }
+      )
     } else {
       Swal.fire({
         icon: 'error',
@@ -326,8 +329,4 @@ export class RegisterComponent {
     return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   }
 
-  encodeNumber(number:any, key:any = 2137) {
-    const encoded = number ^ key; // XOR operation
-    return encoded;
-  }
 }
