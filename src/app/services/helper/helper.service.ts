@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { environment } from 'src/environments/environments';
-import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +8,7 @@ export class HelperService {
 
   currentUserData: any = {};
 
-  constructor(private apiService: ApiService, private authService: AuthService) {
+  constructor(private apiService: ApiService) {
     // this.setCurrentUser();
    }
 

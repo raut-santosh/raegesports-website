@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService,AuthService } from 'src/app/services';
+import { ApiService } from 'src/app/services';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -17,7 +17,7 @@ export class ChangePasswordComponent {
   otp: any;
   countdown: number = 120; // Initial countdown value in seconds
   private timerId: any;
-  constructor(private apiService:ApiService, private authService:AuthService, private router:Router){}
+  constructor(private apiService:ApiService, private router:Router){}
 
   ngOnInit(){
     this.loadUser();
@@ -29,7 +29,7 @@ export class ChangePasswordComponent {
 
   loadUser(){
     const payload = {
-      id: this.authService.currentUser.user.id
+      // id: this.apiService.currentUser.user.id
     } 
     this.apiService.callApi('player/hash', 'post', payload).subscribe(
       (res) => {
@@ -97,7 +97,7 @@ export class ChangePasswordComponent {
     this.countdown = 120; 
 
     const payload = {
-      email: this.authService.currentUser.user.email,
+      // email: this.authService.currentUser.user.email,
       subject: "Otp for registration",
       message: `Here is your 4 digit otp ${this.otp}`,
       type: 'forget'

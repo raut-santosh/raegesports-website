@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services';
-import { AuthService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
@@ -22,10 +21,10 @@ export class ProfileComponent {
   private countdownSubscription!: Subscription;
 
 
-  constructor(public datePipe: DatePipe,private apiService: ApiService, public authService:AuthService, private router:Router){
-   this.imgUrl = authService.getAvtar;
-   this.model = this.authService.currentUser.user ? this.authService.currentUser.user: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
-    console.log(this.authService.currentUser)
+  constructor(public datePipe: DatePipe,private apiService: ApiService, private router:Router){
+   this.imgUrl = apiService;
+  //  this.model = this.apiService.currentUser.user ? this.apiService.currentUser: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
+    // console.log(this.authService.currentUser)
   }
 
   ngOnInit(){
@@ -57,7 +56,7 @@ export class ProfileComponent {
           showConfirmButton: false, // Remove the "OK" button
           timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
         });
-        this.authService.updateUserDetails(response)
+        // this.authService.updateUserDetails(response)
         this.isEdit = false;
       },
       (error) => {
@@ -67,35 +66,35 @@ export class ProfileComponent {
   }
 
   toggleEdit(){
-    if(this.authService.currentUser.user){
-      this.isEdit = !this.isEdit;
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Please login first to update profile!',
-        showConfirmButton: false, // Remove the "OK" button
-        timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
-      });
-      this.router.navigate(['/auth/login']);
-    }
+    // if(this.authService.currentUser.user){
+    //   this.isEdit = !this.isEdit;
+    // }else{
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Please login first to update profile!',
+    //     showConfirmButton: false, // Remove the "OK" button
+    //     timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
+    //   });
+    //   this.router.navigate(['/auth/login']);
+    // }
   }
 
   updateAvtar(event: any): void {
    const file = event.target.files[0];
    console.log(file)
-   this.authService.updateAvatar(file).subscribe(
-    (res) => {
-      console.log('res', res);
-      const profileImage = document.getElementById('profileImage') as HTMLImageElement;
+  //  this.authService.updateAvatar(file).subscribe(
+  //   (res) => {
+  //     console.log('res', res);
+  //     const profileImage = document.getElementById('profileImage') as HTMLImageElement;
 
-      if (profileImage) {
-        profileImage.src = profileImage.src + '&' + new Date().getTime();
-      }
-    },
-   (err) => {
-    console.log('err ',err)
-   }
-   )
+  //     if (profileImage) {
+  //       profileImage.src = profileImage.src + '&' + new Date().getTime();
+  //     }
+  //   },
+  //  (err) => {
+  //   console.log('err ',err)
+  //  }
+  //  )
   }
   
   participatedTournaments(){

@@ -5,7 +5,6 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth/auth.service';
 import { HelperService } from '../services';
 import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -22,6 +21,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, HelperService]
+  providers: [ HelperService]
 })
 export class AuthModule { }

@@ -68,7 +68,7 @@ export class ApiService {
     let urlendpoint = collectionORendpoint;
   
     if (collectionORendpoint.startsWith('/')) {
-      urlendpoint = this.apiUrl + '/' + collectionORendpoint;
+      urlendpoint = this.apiUrl + collectionORendpoint;
     } else {
       urlendpoint = this.apiUrl + '/items/' + collectionORendpoint;
     }

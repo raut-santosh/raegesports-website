@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService, AuthService, HelperService } from 'src/app/services';
+import { ApiService,  HelperService } from 'src/app/services';
 import { environment } from 'src/environments/environments';
 
 @Component({
@@ -11,7 +11,7 @@ export class HeaderComponent {
   model: any = {};
   apiUrl = environment.apiUrl;
 
-  constructor(private apiService:ApiService,public authService: AuthService){}
+  constructor(private apiService:ApiService){}
   ngOnInit(){
     
   }

@@ -9,7 +9,6 @@ import { LayoutsModule } from './layouts/layouts.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './services/auth/token.interceptor';
-import { AuthService } from './services/auth/auth.service';
 import { AboutComponent } from './components/about/about.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { TournamentDetailsComponent } from './components/tournament-details/tournament-details.component';
@@ -41,7 +40,6 @@ import { SharedModule } from './shared/shared.module';
     multi: true
   },
   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-  AuthService,
   DatePipe
 ],
   bootstrap: [AppComponent]
