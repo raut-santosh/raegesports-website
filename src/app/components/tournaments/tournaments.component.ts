@@ -19,6 +19,7 @@ import { PlayerDetailsComponent } from 'src/app/shared/modals/player-details/pla
 export class TournamentsComponent implements OnInit, OnDestroy {
 
   games: any[] = [];
+  leaderBoard: any[] = [];
   apiUrl: string = environment.apiUrl;
   selectedGame: any = null;
   tournaments: any[] = [];
@@ -36,6 +37,7 @@ export class TournamentsComponent implements OnInit, OnDestroy {
       this.selectedGame = tournamentId;
       this.getTournaments(tournamentId);
       console.log(`Selected game ID: ${this.selectedGame}`);
+      this.getLeaderBoard();
     });
   }
 
@@ -192,4 +194,15 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   }
   
 
+  getLeaderBoard(){
+    this.apiService.get('leader_board').subscribe(
+      res => {
+        console.log(res);
+        this.leaderBoard = res.data;
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
 }

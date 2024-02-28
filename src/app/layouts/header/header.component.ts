@@ -11,7 +11,7 @@ export class HeaderComponent {
   model: any = {};
   apiUrl = environment.apiUrl;
 
-  constructor(private apiService:ApiService){}
+  constructor(public apiService:ApiService){}
   ngOnInit(){
     
   }

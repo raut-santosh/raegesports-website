@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
 import { Subscription, interval } from 'rxjs';
+import { environment } from 'src/environments/environments';
 
 @Component({
   selector: 'app-profile',
@@ -18,13 +19,14 @@ export class ProfileComponent {
   imgUrl:any;
   tournaments: any = [];
   countdowns: string[] = [];
+  apiUrl: string = environment.apiUrl
   private countdownSubscription!: Subscription;
 
 
-  constructor(public datePipe: DatePipe,private apiService: ApiService, private router:Router){
+  constructor(public datePipe: DatePipe,public apiService: ApiService, private router:Router){
    this.imgUrl = apiService;
-  //  this.model = this.apiService.currentUser.user ? this.apiService.currentUser: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
-    // console.log(this.authService.currentUser)
+   this.model = this.apiService.currentUserValue ? this.apiService.currentUserValue: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
+    console.log(this.apiService.currentUserValue)
   }
 
   ngOnInit(){
@@ -33,6 +35,8 @@ export class ProfileComponent {
     this.countdownSubscription = interval(1000).subscribe(() => {
       this.updateCountdowns();
     });
+
+    console.log(this.apiService.currentUserValue)
     
   }
 
@@ -47,7 +51,7 @@ export class ProfileComponent {
   formSubmit(event:any){
     delete this.model['tfa_secret']
     delete this.model['password']
-    this.apiService.callApi('users/me', 'patch', this.model).subscribe(
+    this.apiService.save('users/me', this.model).subscribe(
       (response) => {
         console.log('user updated: ', response)
         Swal.fire({
@@ -98,7 +102,7 @@ export class ProfileComponent {
   }
   
   participatedTournaments(){
-    this.apiService.callApi('/items/tournaments_directus_users?fields=*,tournaments_id.*,directus_users_id.*','get').subscribe(
+    this.apiService.get('tournaments_directus_users?fields=*,tournaments_id.*,directus_users_id.*').subscribe(
       res => {
         console.log(res)
         this.tournaments = res.data;

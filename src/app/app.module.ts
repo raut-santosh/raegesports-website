@@ -15,6 +15,10 @@ import { TournamentDetailsComponent } from './components/tournament-details/tour
 import { ErrorInterceptor } from './services/auth/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
+import { BlogsComponent } from './components/blogs/blogs.component';
+import { NewsComponent } from './components/news/news.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,9 @@ import { SharedModule } from './shared/shared.module';
     AboutComponent,
     TournamentsComponent,
     TournamentDetailsComponent,
+    BlogsComponent,
+    NewsComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,8 @@ import { SharedModule } from './shared/shared.module';
     CommonModule,
     HttpClientModule,
     NgbModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -4,6 +4,9 @@ import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { TournamentsComponent } from './components/tournaments/tournaments.component';
 import { TournamentDetailsComponent } from './components/tournament-details/tournament-details.component';
+import { BlogsComponent } from './components/blogs/blogs.component';
+import { NewsComponent } from './components/news/news.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,18 @@ const routes: Routes = [
   {
     path: 'tournament/:id',
     component: TournamentsComponent
+  },
+  {
+    path: 'blogs',
+    component: BlogsComponent
+  },
+  {
+    path: 'news',
+    component: NewsComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
   }
 ];
 

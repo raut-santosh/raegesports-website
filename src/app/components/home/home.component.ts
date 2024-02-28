@@ -9,10 +9,15 @@ import { environment } from 'src/environments/environments';
 export class HomeComponent {
   games: any[] = [];
   members: any[] = [];
+  highlights: any[] = [];
+  contests: any[] = [];
+
   apiUrl: string = environment.apiUrl;
   constructor(private apiService: ApiService){
     this.getGames();
     this.getMembers();
+    this.getHighlights();
+    this.getContests();
   }
 
   ngOnInit() {
@@ -31,5 +36,19 @@ export class HomeComponent {
       console.log(res);
       this.members = res.data;
     });
+  }
+
+  getHighlights(){
+    this.apiService.get('match_highlights').subscribe(res => {
+      console.log(res);
+      this.highlights = res.data;
+    })
+  }
+
+  getContests(){
+    this.apiService.get('contests').subscribe(res => {
+      console.log(res);
+      this.contests = res.data;
+    })
   }
 }

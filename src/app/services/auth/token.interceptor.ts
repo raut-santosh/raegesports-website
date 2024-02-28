@@ -47,7 +47,13 @@ export class TokenInterceptor implements HttpInterceptor {
     const routesToSkipTokenInterceptor = [
       { url: '/auth', methods: [] }, // Skip for all methods for /auth
       { url: '/games', methods: ['GET'] }, // Skip only for GET method for /games
-    //   {url: '/users', methods: ['GET'] }, // Skip only for GET method for /}
+      {url: '/members', methods: ['GET'] }, // Skip only for GET method for /}
+      {url: '/tournaments', methods: ['GET'] }, // Skip only for GET method for /}
+      {url: '/match_highlights', methods: ['GET'] }, // Skip only for GET method for /}
+      {url: '/blogs', methods: ['GET'] }, // Skip only for GET method for /}
+      {url: '/news', methods: ['GET'] }, // Skip only for GET method for /}
+      {url: '/contact_us', methods: ['GET'] }, // Skip only for GET method for /}
+      {url: '/contact_us', methods: ['POST'] }, // Skip only for GET method for /}
       // Add more routes as needed
     ];
 

@@ -100,8 +100,8 @@ export class ApiService {
   public save<T>(collection: string, payload: any): Observable<T> {
     const isEdit = payload && payload['id']; // Check if it's an edit (has an 'id')
     const url = isEdit
-      ? `${this.apiUrl}/${collection}/${payload['id']}`
-      : `${this.apiUrl}/${collection}`;
+      ? `${this.apiUrl}/items/${collection}/${payload['id']}`
+      : `${this.apiUrl}/items/${collection}`;
   
     // ... other logic ...
   
