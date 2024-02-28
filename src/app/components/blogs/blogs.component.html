@@ -1,0 +1,107 @@
+<main class="main--area">
+
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area breadcrumb__hide-img" data-background="assets/img/bg/breadcrumb_bg02.jpg">
+        <div class="container">
+            <div class="breadcrumb__wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb__content">
+                            <h2 class="title">blog standard</h2>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">blog list</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
+
+    <!-- blog-area -->
+    <section class="blog-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="blog-post-wrapper">
+                    <div *ngFor="let blog of blogs;" class="blog-post-item">
+                        <div class="blog-post-thumb">
+                            <a href="{{apiUrl + '/assets/'+blog.featured_image.id }}"><img src="{{apiUrl + '/assets/' + blog.featured_image.id + '?fit=cover&width=866&height=505&quality=80' }}" alt="img"></a>
+                        </div>
+                        <div class="blog-post-content">
+                            <div class="blog-post-meta">
+                                <ul class="list-wrap">
+                                    <li>By<a>{{blog.user_created.first_name +' '+blog.user_created.last_name}}</a></li>
+                                    <li><i class="far fa-calendar-alt"></i>{{blog.date_update ? blog.date_update : blog.date_created}}</li>
+                                    <!-- <li><i class="far fa-comments"></i><a><?php echo $blog['commentCount']; ?></a></li> -->
+                                </ul>
+                            </div>
+                            <h2 class="title"><a href="/blogs/{{blog.slug}}">{{blog.title}}</a></h2>
+                            <p>{{blog.post}}</p>
+                            <div class="blog-post-bottom">
+                                <div class="blog-post-read">
+                                    <a href="/blogs/{{blog.slug}}">READ MORE <i class="fas fa-arrow-right"></i></a>
+                                </div>
+                                <div class="blog-post-share">
+                                    <h5 class="share">share :</h5>
+                                    <ul class="list-wrap">
+                                        <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{apiUrl+'/blogs/'+blog.slug}}"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{apiUrl+'/blogs/'+blog.slug}}&text={{blog.title}}"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a target="_blank" href="https://www.linkedin.com/shareArticle?url={{apiUrl+'/blogs/'+blog.slug}}&title={{blog.title}}"><i class="fab fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 *ngIf="blogs.length === 0">No results found.</h3>
+                    <div class="pagination__wrap">
+                        <ul class="list-wrap d-flex flex-wrap justify-content-center">
+                            <li>
+                                <a class="next page-numbers">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li><span class="page-numbers ">01</span></li>
+                            <li><a class="page-numbers current">02</a></li>
+                            <li><a class="page-numbers">03</a></li>
+                            <li>
+                                <a class="next page-numbers">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog-post-sidebar">
+                    <aside class="blog-sidebar">
+                        <div class="blog-widget">
+                            <form action="" method="GET" class="sidebar-search-form position-relative">
+                                <input name="search" value="" type="text" placeholder="Search here..">
+                                <button type="submit"><i class="flaticon-loupe"></i></button>
+                            </form>
+                        </div>
+                        <div class="blog-widget">
+                            <h4 class="fw-title">Recent Posts</h4>
+                            <div class="rc__post-wrapper">
+                                <div *ngFor="let blog of blogs;" class="rc__post-item">
+                                    <div class="rc__post-thumb">
+                                        <a href="{{apiUrl + '/assets/'+blog.featured_image.id }}"><img src="{{apiUrl + '/assets/' +blog.featured_image.id + '?fit=cover&width=112&height=88&quality=80'}}" alt="img"></a>
+                                    </div>
+                                    <div class="rc__post-content">
+                                        <h6 class="title"><a href="blogs/{{blog.slug}}">{{blog.title}}</a></h6>
+                                        <span class="date">{{blog.date_created}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- blog-area-end -->
+
+</main>

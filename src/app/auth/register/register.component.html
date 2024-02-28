@@ -41,24 +41,29 @@
                                             <div *ngIf="field.isEmptyError" class="error-msg">{{ field.emptyErrorMsg }}</div>
                                             <div *ngIf="field.isValidationError" class="error-msg">{{ field.errorMsg }}</div>
                                         </div>
-                                        
                                     </div>
                                 </ng-container>
                             </div>
 
                             <div class="row">
+                                <div *ngIf="otpSent" class="mt-2">
+                                    Send otp after: {{ formatTimer(countdown) }}
+                                </div>
                                 <div class="col-md-12 mt-3 d-flex justify-content-between">
-                                    <span *ngIf="!otpSent"><button type="button" class="btn btn-primary"
-                                            (click)="sendOtp()">Send Otp</button></span>
-                                    <div *ngIf="otpSent" class="mt-2">
-                                        Send otp after: {{ formatTimer(countdown) }}
-                                    </div>
+                                    <button *ngIf="!isRegistred" type="button" class="btn btn-primary"
+                                            (click)="formSubmit($event)">Register</button>
+
+                                    <span *ngIf="otpSent"><button type="button" class="btn btn-primary"
+                                            (click)="verifyOtp()">Verify Otp</button></span>
+                                            
+                                    <span *ngIf="countdown == 0"><button type="button" class="btn btn-primary"
+                                        (click)="sendOtp()">Resend Otp</button></span>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12 mt-3" style="text-align: right;">
-                                    <span>Already have an account? <a routerLink="/auth/login">LogIn here</a></span>
+                                    <span>Already have an account? <a href="/auth/login">LogIn here</a></span>
                                 </div>
                             </div>
                         </form>

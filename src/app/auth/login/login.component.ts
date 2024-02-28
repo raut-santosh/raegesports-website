@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { ApiService } from 'src/app/services';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 @Component({
@@ -14,7 +14,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   isPasswordVisible: boolean = false;
 
-  constructor(public authService: AuthService, private router: Router, private fb: FormBuilder){
+  constructor(private apiService: ApiService, private router: Router, private fb: FormBuilder){
     this.createForm();
   }
 
@@ -79,7 +79,7 @@ export class LoginComponent {
       console.error('Form data is invalid');
     } else {
       console.log('model:', this.loginForm.value);
-      this.authService.login(this.loginForm.value).subscribe(
+      this.apiService.auth('login',this.loginForm.value).subscribe(
         (response) => {
           console.log(response);
           if (response) {

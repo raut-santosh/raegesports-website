@@ -31,8 +31,8 @@
                 <div class="shop__details-images-wrap">
                     <div class="tab-content" id="imageTabContent">
                         <div class="tab-pane show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                            <a href="{{ authService.getAvtar }}" class="popup-image"><img
-                                    src="{{ authService.getAvtar }}" /></a>
+                            <a href="{{ apiService.currentUserValue.avatar }}" class="popup-image"><img
+                                    src="{{apiUrl + '/assets/' + apiService.currentUserValue.avatar }}" /></a>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                             <a href="shop.html"><i class="fab fa-twitter"></i></a>
                             <a href="shop.html"><i class="fab fa-instagram"></i></a>
                         </div> -->
-                        <a routerLink="/auth/changePassword" class="tg-btn-1 -btn-yellow"><span style="color:black;font-weight: bold;">Change password</span></a>
+                        <a href="/auth/changePassword" class="tg-btn-1 -btn-yellow"><span style="color:black;font-weight: bold;">Change password</span></a>
                     </div>
                 </div>
             </div>

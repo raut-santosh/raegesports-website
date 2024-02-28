@@ -7,21 +7,17 @@
                     <div class="tgmenu__wrap">
                         <nav class="tgmenu__nav">
                             <div class="logo">
-                                <a routerLink="/">
+                                <a href="/">
                                     <img src="assets/img/logo/logo1.png" alt="Logo">
                                 </a>
                             </div>
                             <div class="tgmenu__navbar-wrap tgmenu__main-menu d-none d-xl-flex">
                                 <ul class="navigation">
-                                    <li class="active menu-item-has-children"><a routerLink="/">Home</a></li>
+                                    <li class="active menu-item-has-children"><a href="/">Home</a></li>
                                     <li><a href="about-us">ABOUT US</a></li>
-                                    <li class="menu-item-has-children"><a href="#">TOURNAMENT</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="tournament">TOURNAMENT</a></li>
-                                            <li><a href="tournament-details">TOURNAMENT Single</a></li>
-                                        </ul>
+                                    <li class="menu-item-has-children"><a href="tournament">TOURNAMENT</a>
                                     </li>
-                                    <li class="menu-item-has-children"><a routerLink="pages" routerLinkActive="active">PAGES</a>
+                                    <!-- <li class="menu-item-has-children"><a routerLink="pages" routerLinkActive="active">PAGES</a>
                                         <ul class="sub-menu">
                                             <li><a href="shop">Gaming Shop</a></li>
                                             <li><a href="shop-details">Shop Details</a></li>
@@ -29,11 +25,11 @@
                                             <li><a href="services-details">Services Details</a></li>
                                             <li><a href="team-details">Player Details</a></li>
                                         </ul>
-                                    </li>
+                                    </li> -->
                                     <li class="menu-item-has-children"><a href="#">Blogs & News</a>
                                         <ul class="sub-menu">
-                                            <li><a href="blog">Blogs</a></li>
-                                            <li><a href="blog-details">E-sports News</a></li>
+                                            <li><a href="blogs">Blogs</a></li>
+                                            <li><a href="news">E-sports News</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="contact">contact</a></li>
@@ -42,10 +38,9 @@
                             <div class="tgmenu__action d-none d-md-block">
                                 <ul class="list-wrap">
                                     <li class="search"><a href="#"><i class="flaticon-search-1"></i></a></li>
-                                    <li *ngIf="!authService.currentUser.user.id" class="header-btn"><a routerLink="auth/login" class="tg-border-btn"><i
+                                    <li *ngIf="!apiService.currentUser" class="header-btn"><a routerLink="auth/login" class="tg-border-btn"><i
                                                 class="flaticon-edit"></i> ~sign in</a></li>
-                                                <!-- <i style="font-size:35px;" class="bi bi-person-circle"></i> -->
-                                    <li *ngIf="authService.currentUser.user.id" title="{{authService.currentUser.user.first_name}}"><a routerLink="auth/profile"><img style="border-radius:50%" src="{{apiUrl+'/assets/'+authService.currentUser.user.avatar+'?fit=cover&width=45&height=45&quality=80'}}" alt=""></a></li>
+                                    <li *ngIf="apiService.currentUser" title="{{apiService.currentUser}}"><a routerLink="auth/profile"><img style="border-radius:50%" src="{{apiUrl+'/assets/'+apiService.currentUser+'?fit=cover&width=45&height=45&quality=80'}}" alt=""></a></li>
                                     <li class="side-toggle-icon">
                                         <span></span>
                                         <span></span>
@@ -63,8 +58,8 @@
                                 <a href="/"><img src="assets/img/logo/logo1.png" alt="Logo"></a>
                             </div>
                             <div  class="profile-image">
-                                <img style="cursor:pointer;" routerLink="/auth/profile" src="{{authService.getAvtar}}" alt="Profile Image">
-                                <b routerLink="/auth/profile" style="margin-left:20px;cursor:pointer;">{{authService.currentUser.user.first_name+' '+authService.currentUser.user.last_name}}</b>
+                                <!-- <img style="cursor:pointer;" routerLink="/auth/profile" src="{{authService.getAvtar}}" alt="Profile Image">
+                                <b routerLink="/auth/profile" style="margin-left:20px;cursor:pointer;">{{authService.currentUser.user.first_name+' '+authService.currentUser.user.last_name}}</b> -->
                             </div>
                             
                             <div class="tgmobile__search">
@@ -79,12 +74,12 @@
                                     <!-- <li *ngIf="!authService.currentUser.user">
                                         <a routerLink="auth/register">Register</a>
                                     </li> -->
-                                    <li *ngIf="!authService.currentUser.user.id">
+                                    <!-- <li *ngIf="!authService.currentUser.user.id">
                                         <a routerLink="auth/login">Login</a>
                                     </li>
                                     <li *ngIf="authService.currentUser.user.id" style="cursor:pointer;">
                                         <a (click)="authService.logout()">LogOut</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                             <div class="social-links">
