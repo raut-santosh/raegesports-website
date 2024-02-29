@@ -15,7 +15,7 @@ export class PlayerDetailsComponent {
 
   closeModal(data:any) {
       if(data){
-        this.apiService.callApi('/users/me','patch', this.model).subscribe(
+        this.apiService.get('/users/me').subscribe(
           res=>{
             console.log(res);
             if(res.data){

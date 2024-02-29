@@ -31,8 +31,8 @@
                 <div class="shop__details-images-wrap">
                     <div class="tab-content" id="imageTabContent">
                         <div class="tab-pane show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                            <a href="{{ apiService.currentUserValue.avatar }}" class="popup-image"><img
-                                    src="{{apiUrl + '/assets/' + apiService.currentUserValue.avatar }}" /></a>
+                            <a href="{{ apiService.currentUserValue?.avatar }}" class="popup-image"><img
+                                    src="{{apiUrl + '/assets/' + apiService.currentUserValue?.avatar }}" /></a>
                         </div>
                     </div>
                 </div>
@@ -363,9 +363,9 @@
                                         <span>{{datePipe.transform(tournament.tournaments_id.start_date, 'h:mm a')}}</span> <br *ngIf="countdowns[i] !== 'End'">
                                         <span><i class="fas fa-clock"></i>{{ countdowns[i] }}</span>
                                     </div>
-                                    <div class="tournament__list-live">
+                                    <!-- <div class="tournament__list-live">
                                         <a>Participate<i class="far fa-play-circle"></i></a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <!-- <div class="tournament__list-item wow fadeInUp" data-wow-delay=".4s">
