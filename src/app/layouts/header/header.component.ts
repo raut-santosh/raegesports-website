@@ -13,8 +13,12 @@ export class HeaderComponent {
 
   constructor(public apiService:ApiService){}
   ngOnInit(){
-    
+    console.log(this.apiService.currentUserValue)
+    console.log('sam')
   }
+
+
+
 
  
 }

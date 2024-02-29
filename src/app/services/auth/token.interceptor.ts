@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     // add authorization header with jwt token if available
     let currentUser = this.apiService.currentUserValue;
     console.log(this.apiService.currentUserValue);
-    let token = currentUser?.token ?? currentUser?.session.access_token;
+    let token = currentUser?.session.access_token ?? currentUser?.token;
     console.log('token = ',token);
     if (
       currentUser &&
@@ -48,7 +48,7 @@ export class TokenInterceptor implements HttpInterceptor {
       { url: '/auth', methods: [] }, // Skip for all methods for /auth
       { url: '/games', methods: ['GET'] }, // Skip only for GET method for /games
       {url: '/members', methods: ['GET'] }, // Skip only for GET method for /}
-      {url: '/tournaments', methods: ['GET'] }, // Skip only for GET method for /}
+      // {url: '/tournaments', methods: ['GET'] }, // Skip only for GET method for /}
       {url: '/match_highlights', methods: ['GET'] }, // Skip only for GET method for /}
       {url: '/blogs', methods: ['GET'] }, // Skip only for GET method for /}
       {url: '/news', methods: ['GET'] }, // Skip only for GET method for /}

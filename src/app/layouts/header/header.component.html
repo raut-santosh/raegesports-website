@@ -38,9 +38,9 @@
                             <div class="tgmenu__action d-none d-md-block">
                                 <ul class="list-wrap">
                                     <li class="search"><a href="#"><i class="flaticon-search-1"></i></a></li>
-                                    <li *ngIf="!apiService.currentUser" class="header-btn"><a routerLink="auth/login" class="tg-border-btn"><i
+                                    <li class="header-btn"><a href="auth/login" class="tg-border-btn"><i
                                                 class="flaticon-edit"></i> ~sign in</a></li>
-                                    <li *ngIf="apiService.currentUser" title="{{apiService.currentUser}}"><a routerLink="auth/profile"><img style="border-radius:50%" src="{{apiUrl+'/assets/'+apiService.currentUser+'?fit=cover&width=45&height=45&quality=80'}}" alt=""></a></li>
+                                    <li  title="{{apiService.currentUserValue?.first_name}}"><a href="auth/profile"><img style="border-radius:50%" src="{{apiUrl+'/assets/'+apiService.currentUserValue?.avatar+'?fit=cover&width=45&height=45&quality=80'}}" alt=""></a></li>
                                     <li class="side-toggle-icon">
                                         <span></span>
                                         <span></span>
@@ -57,9 +57,9 @@
                             <div class="nav-logo">
                                 <a href="/"><img src="assets/img/logo/logo1.png" alt="Logo"></a>
                             </div>
-                            <div  class="profile-image">
-                                <!-- <img style="cursor:pointer;" routerLink="/auth/profile" src="{{authService.getAvtar}}" alt="Profile Image">
-                                <b routerLink="/auth/profile" style="margin-left:20px;cursor:pointer;">{{authService.currentUser.user.first_name+' '+authService.currentUser.user.last_name}}</b> -->
+                            <div *ngIf="apiService.currentUserValue"  class="profile-image">
+                                <img style="cursor:pointer;" [src]="apiUrl + '/assets/' +apiService.currentUserValue?.avatar" alt="Profile Image">
+                                <b href="/auth/profile" style="margin-left:20px;cursor:pointer;">{{apiService.currentUserValue?.first_name+' '+apiService.currentUserValue?.last_name}}</b>
                             </div>
                             
                             <div class="tgmobile__search">
@@ -71,15 +71,15 @@
                             <div class="tgmobile__menu-outer">
                                 <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
                                 <ul class="navigation">
-                                    <!-- <li *ngIf="!authService.currentUser.user">
-                                        <a routerLink="auth/register">Register</a>
-                                    </li> -->
-                                    <!-- <li *ngIf="!authService.currentUser.user.id">
-                                        <a routerLink="auth/login">Login</a>
+                                    <li *ngIf="!apiService.currentUserValue">
+                                        <a href="auth/register">Register</a>
                                     </li>
-                                    <li *ngIf="authService.currentUser.user.id" style="cursor:pointer;">
-                                        <a (click)="authService.logout()">LogOut</a>
-                                    </li> -->
+                                    <li *ngIf="!apiService.currentUserValue">
+                                        <a href="auth/login">Login</a>
+                                    </li>
+                                    <li *ngIf="apiService.currentUserValue" style="cursor:pointer;">
+                                        <a (click)="apiService.logout()">LogOut</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="social-links">
