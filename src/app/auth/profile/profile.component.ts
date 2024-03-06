@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
@@ -23,13 +23,14 @@ export class ProfileComponent {
   private countdownSubscription!: Subscription;
 
 
-  constructor(public datePipe: DatePipe,public apiService: ApiService, private router:Router){
+  constructor(public datePipe: DatePipe,public apiService: ApiService, private router:Router, private route:ActivatedRoute){
    this.imgUrl = apiService;
    this.model = this.apiService.currentUserValue ? this.apiService.currentUserValue: {first_name: "Guest", last_name: "User", balance:0, location:"Unknown", mobile:"Unknown", email:"Unknown"}
     console.log(this.apiService.currentUserValue)
   }
 
   ngOnInit(){
+    
     this.participatedTournaments();
     // Subscribe to the countdown
     this.countdownSubscription = interval(1000).subscribe(() => {
