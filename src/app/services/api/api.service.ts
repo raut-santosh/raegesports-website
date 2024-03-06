@@ -267,4 +267,10 @@ export class ApiService {
     return rh(a)+rh(b)+rh(c)+rh(d);
   }
 
+  htmlEntityDecode(value: string): string {
+    const htmlEntityElement = document.createElement('div');
+    htmlEntityElement.innerHTML = value;
+    return htmlEntityElement.textContent || '';
+  }
+
 }
