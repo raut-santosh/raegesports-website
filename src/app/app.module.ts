@@ -19,6 +19,8 @@ import { BlogsComponent } from './components/blogs/blogs.component';
 import { NewsComponent } from './components/news/news.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FormsModule } from '@angular/forms';
+import { BlogDetailsComponent } from './components/blog-details/blog-details.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { FormsModule } from '@angular/forms';
     BlogsComponent,
     NewsComponent,
     ContactComponent,
+    BlogDetailsComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,
