@@ -7,6 +7,7 @@ import { TournamentDetailsComponent } from './components/tournament-details/tour
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { NewsComponent } from './components/news/news.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { BlogDetailsComponent } from './components/blog-details/blog-details.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'blogs',
     component: BlogsComponent
+  },
+  {
+    path: 'blogs/:id',
+    component: BlogDetailsComponent
   },
   {
     path: 'news',
