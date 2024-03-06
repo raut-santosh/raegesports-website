@@ -90,7 +90,6 @@ export class LoginComponent {
               timer: 2000
             });
             this.router.navigate(['/auth/profile']);
-            
           }
         },
         (error) => {
