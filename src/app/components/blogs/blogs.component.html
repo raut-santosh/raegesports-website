@@ -92,7 +92,7 @@
                         <div class="blog-widget widget_categories">
                             <h4 class="fw-title">CATEGORIES</h4>
                             <ul class="list-wrap">
-                                <li *ngFor="let cat of categories"><a href="#">{{cat.name}}</a><span class="float-right">({{cat.count}})</span></li>
+                                <li *ngFor="let cat of categories"><a href="blogs?category={{cat.name}}">{{cat.name}}</a><span class="float-right">({{cat.count}})</span></li>
                             </ul>
                         </div>
                         <div class="blog-widget">
