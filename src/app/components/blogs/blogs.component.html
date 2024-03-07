@@ -29,12 +29,12 @@
                 <div class="blog-post-wrapper">
                     <div *ngFor="let blog of blogs;" class="blog-post-item">
                         <div class="blog-post-thumb">
-                            <a href="{{apiUrl + '/assets/'+blog.featured_image.id }}"><img src="{{apiUrl + '/assets/' + blog.featured_image.id + '?fit=cover&width=866&height=505&quality=80' }}" alt="img"></a>
+                            <a href="{{apiUrl + '/assets/'+blog.featured_image?.id }}"><img src="{{apiUrl + '/assets/' + blog.featured_image?.id + '?fit=cover&width=866&height=505&quality=80' }}" alt="img"></a>
                         </div>
                         <div class="blog-post-content">
                             <div class="blog-post-meta">
                                 <ul class="list-wrap">
-                                    <li>By<a>{{blog.user_created.first_name +' '+blog.user_created.last_name}}</a></li>
+                                    <li>By<a>{{blog.user_created?.first_name +' '+blog.user_created?.last_name}}</a></li>
                                     <li><i class="far fa-calendar-alt"></i>{{formatDate(blog.date_update ? blog.date_update : blog.date_created)}}</li>
                                     <!-- <li><i class="far fa-comments"></i><a><?php echo $blog['commentCount']; ?></a></li> -->
                                 </ul>
@@ -78,20 +78,15 @@
                 <div class="blog-post-sidebar">
                     <aside class="blog-sidebar">
                         <div class="blog-widget">
-                            <form action="" method="GET" class="sidebar-search-form position-relative">
-                                <input name="search" value="" type="text" placeholder="Search here..">
+                            <form (ngSubmit)="search()" class="sidebar-search-form position-relative">
+                                <input [(ngModel)]="searchQuery" name="searchQuery" value="" type="text" placeholder="Search here..">
                                 <button type="submit"><i class="flaticon-loupe"></i></button>
                             </form>
                         </div>
                         <div class="blog-widget widget_categories">
                             <h4 class="fw-title">CATEGORIES</h4>
                             <ul class="list-wrap">
-                                <li><a href="#">gaming</a><span class="float-right">(11)</span></li>
-                                <li><a href="#">ELECTRONIC</a><span class="float-right">(4)</span></li>
-                                <li><a href="#">online</a><span class="float-right">(21)</span></li>
-                                <li><a href="#">TOURNAMENT</a><span class="float-right">(15)</span></li>
-                                <li><a href="#">controller</a><span class="float-right">(2)</span></li>
-                                <li><a href="#">live</a><span class="float-right">(7)</span></li>
+                                <li *ngFor="let cat of categories"><a href="#">{{cat.name}}</a><span class="float-right">({{cat.count}})</span></li>
                             </ul>
                         </div>
                         <div class="blog-widget">
@@ -99,7 +94,7 @@
                             <div class="rc__post-wrapper">
                                 <div *ngFor="let blog of blogs;" class="rc__post-item">
                                     <div class="rc__post-thumb">
-                                        <a href="{{apiUrl + '/assets/'+blog.featured_image.id }}"><img src="{{apiUrl + '/assets/' +blog.featured_image.id + '?fit=cover&width=112&height=88&quality=80'}}" alt="img"></a>
+                                        <a href="{{apiUrl + '/assets/'+blog?.featured_image?.id }}"><img src="{{apiUrl + '/assets/' +blog?.featured_image?.id + '?fit=cover&width=112&height=88&quality=80'}}" alt="img"></a>
                                     </div>
                                     <div class="rc__post-content">
                                         <h6 class="title"><a href="blogs/{{blog.slug}}">{{blog.title}}</a></h6>

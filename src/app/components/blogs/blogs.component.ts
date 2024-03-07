@@ -12,9 +12,12 @@ export class BlogsComponent {
 
   blogs: any[] = [];
   apiUrl = environment.apiUrl;
-
+  cats: any = [];
+  categories: any = [];
+  searchQuery: any = "";
   ngOnInit(){
     this.getBlogs();
+    this.getCats();
   }
 
   getBlogs(){
@@ -29,8 +32,44 @@ export class BlogsComponent {
     )
   }
 
+  getCats(){
+    this.apiService.get('categories').subscribe(
+      res => {
+        console.log(res);
+        this.cats = res.data;
+        this.getCatCount();
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+
+  getCatCount(){
+    for(let i=0; i<this.cats.length; i++){
+      // console.log(this.cats[i]);
+      this.apiService.get('blogs', {filter: {category: this.cats[i].name}, "aggregate": {"count": "category"}}).subscribe(
+        res => {
+          this.categories.push({name: this.cats[i].name, count: res.data[0].count.category});
+        }
+      )
+    }
+  }
 
   formatDate(date:any){
     return this.datePipe.transform(date, 'MMM dd, yyyy');
+  }
+
+  search(){
+    this.apiService.get('blogs', {"fields":"*.*", "search": this.searchQuery}).subscribe(
+      res => {
+        console.log(res);
+        this.blogs = res.data;
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 }
