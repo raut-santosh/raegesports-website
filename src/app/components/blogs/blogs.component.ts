@@ -13,16 +13,18 @@ export class BlogsComponent {
   }
 
   blogs: any[] = [];
+  recent:any[] = [];
   apiUrl = environment.apiUrl;
   cats: any = [];
   categories: any = [];
   searchQuery: any = "";
   currentPage: number = 1;
-  pageSize: number = 1; // Number of items per page
+  pageSize: number = 10; // Number of items per page
   totalItems: number = 0;
   ngOnInit(){
     this.getBlogs();
     this.getCats();
+    this.getRecents();
   }
 
   getBlogs(pageNumber: any = 1) {
@@ -97,6 +99,16 @@ export class BlogsComponent {
   
       return pages;
     }
+  }
+
+
+  getRecents(){
+    this.apiService.get('blogs', {limit: 3, sort: "-date_created", fields:"*.*"}).subscribe(
+      res => {
+        console.log(res);
+        this.recent = res.data;
+      }
+    )
   }
 
   getCats(){

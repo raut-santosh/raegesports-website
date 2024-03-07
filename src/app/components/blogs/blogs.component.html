@@ -98,7 +98,7 @@
                         <div class="blog-widget">
                             <h4 class="fw-title">Recent Posts</h4>
                             <div class="rc__post-wrapper">
-                                <div *ngFor="let blog of blogs;" class="rc__post-item">
+                                <div *ngFor="let blog of recent;" class="rc__post-item">
                                     <div class="rc__post-thumb">
                                         <a href="{{apiUrl + '/assets/'+blog?.featured_image?.id }}"><img src="{{apiUrl + '/assets/' +blog?.featured_image?.id + '?fit=cover&width=112&height=88&quality=80'}}" alt="img"></a>
                                     </div>
