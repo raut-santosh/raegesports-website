@@ -12,8 +12,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">blog</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{model.title}}</li>
+                                    <li class="breadcrumb-item active" aria-current="page">blog post</li>
                                 </ol>
                             </nav>
                         </div>
@@ -31,21 +30,21 @@
                 <div class="blog-post-wrapper">
                     <div class="blog-post-item">
                         <div class="blog-post-thumb">
-                            
-                            <img src="{{apiUrl + '/assets/' + model.featured_image.id }}" alt="img">
+                            <img src="{{apiUrl + '/assets/' + model?.featured_image.id }}" alt="img">
                         </div>
                         <div class="blog-post-content blog-details-content">
                             <div class="blog-post-meta">
                                 <ul class="list-wrap">
-                                    <li>By<a href="#">{{model.user_created?.first_name}} {{model.user_created?.last_name}}</a></li>
+                                    <li>By<a href="#">{{model?.user_created?.first_name}}
+                                            {{model?.user_created?.last_name}}</a></li>
                                     <!-- <li><i class="far fa-calendar-alt"></i> Aug 16, 2023</li> -->
-                                    <li><i class="far fa-calendar-alt"></i> {{model.date_created}}</li>
+                                    <li><i class="far fa-calendar-alt"></i> {{formatDate(model?.date_created)}}</li>
                                     <li><i class="far fa-comments"></i><a href="#">No comments</a></li>
                                 </ul>
                             </div>
-                            <h2 class="title">{{model.title}}</h2>
-                            <p>{{model.post}}</p>
-                            <div class="blog-details-bottom">
+                            <h2 class="title">{{model?.title}}</h2>
+                            <p>{{model?.post}}</p>
+                            <!-- <div class="blog-details-bottom">
                                 <div class="row">
                                     <div class="col-xl-6 col-md-7">
                                         <div class="tg-post-tags">
@@ -68,10 +67,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                    <div class="blog__avatar-wrap mb-65">
+                    <!-- <div class="blog__avatar-wrap mb-65">
                         <div class="blog__avatar-img">
                             <a href="#"><img src="assets/img/blog/avatar.jpg" alt="img"></a>
                         </div>
@@ -80,12 +79,12 @@
                             <h4 class="name"><a href="#">Kaceytron G.</a></h4>
                             <p>Axcepteur sint occaecat atat non proident, sunt culpa officia deserunt mollit anim id est labor umLor emdolor.</p>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="comments-wrap">
-                        <h4 class="comments-wrap-title">3 Comments</h4>
+                        <h4 class="comments-wrap-title">{{comments.length}} Comments</h4>
                         <div class="latest-comments">
                             <ul class="list-wrap">
-                                <li>
+                                <!-- <li>
                                     <div class="comments-box">
                                         <div class="comments-avatar">
                                             <img src="assets/img/blog/comment01.png" alt="img">
@@ -114,18 +113,22 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </li>
-                                <li>
+                                </li> -->
+                                <li *ngFor="let comment of comments;">
                                     <div class="comments-box">
                                         <div class="comments-avatar">
-                                            <img src="assets/img/blog/comment03.png" alt="img">
+                                            <img src="{{apiUrl+'/assets/'+comment?.author?.avatar+'?fit=cover&width=132&height=132&quality=80'}}"
+                                                alt="img">
                                         </div>
                                         <div class="comments-text">
                                             <div class="avatar-name">
-                                                <h6 class="name">Luna Rose <a href="#" class="comment-reply-link"><i class="fas fa-reply"></i> Reply</a></h6>
-                                                <span class="date">September 6, 2023</span>
+                                                <!-- <h6 class="name">{{comment?.author?.first_name +' '+comment?.author?.last_name}} <a href="#" class="comment-reply-link"><i class="fas fa-reply"></i> Reply</a></h6> -->
+                                                <h6 class="name">{{comment?.author?.first_name +'
+                                                    '+comment?.author?.last_name}}</h6>
+                                                <span class="date">{{formatDate(comment?.date_update ?
+                                                    comment?.date_update : comment?.date_created)}}</span>
                                             </div>
-                                            <p>Axcepteur sint occaecat atat non proident, sunt culpa officia deserunt mollit anim id est labor umLor emdolor eam enim ad minim veniam quis nostrud today.</p>
+                                            <p>{{apiService.htmlEntityDecode(comment.comment)}}</p>
                                         </div>
                                     </div>
                                 </li>
@@ -133,23 +136,25 @@
                         </div>
                     </div>
                     <div class="comment-respond">
-                        <h3 class="comment-reply-title">Leave a Reply</h3>
-                        <form class="comment-form" action="#">
-                            <p class="comment-notes">Email address will not be published. Required fields are marked *</p>
-                            <div class="row">
+                        <h3 class="comment-reply-title">Leave a Comment</h3>
+                        <form class="comment-form" (ngSubmit)="formSubmit()">
+                            <p class="comment-notes">Email address will not be published. Required fields are marked *
+                            </p>
+                            <!-- <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-grp">
-                                        <input type="text" placeholder="Name *">
+                                        <input [(ngModel)]="formData.name" name="name" type="text" placeholder="Name *">
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-12">
                                     <div class="form-grp">
-                                        <input type="email" placeholder="Email *">
+                                        <input [(ngModel)]="formData.email" name="email" type="email" placeholder="Email *">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-grp">
-                                <textarea name="message" placeholder="Comment *"></textarea>
+                                <textarea [(ngModel)]="formData.comment" name="comment"
+                                    placeholder="Comment *"></textarea>
                             </div>
                             <button type="submit">Post Comment</button>
                         </form>
@@ -173,58 +178,31 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="blog-widget">
-                            <form class="sidebar-search-form position-relative">
-                                <input type="text" placeholder="Search here..">
-                                <button><i class="flaticon-loupe"></i></button>
-                            </form>
-                        </div>
                         <div class="blog-widget widget_categories">
                             <h4 class="fw-title">CATEGORIES</h4>
                             <ul class="list-wrap">
-                                <li><a href="#">gaming</a><span class="float-right">(11)</span></li>
-                                <li><a href="#">ELECTRONIC</a><span class="float-right">(4)</span></li>
-                                <li><a href="#">online</a><span class="float-right">(21)</span></li>
-                                <li><a href="#">TOURNAMENT</a><span class="float-right">(15)</span></li>
-                                <li><a href="#">controller</a><span class="float-right">(2)</span></li>
-                                <li><a href="#">live</a><span class="float-right">(7)</span></li>
+                                <li *ngFor="let cat of categories"><a href="#">{{cat.name}}</a><span
+                                        class="float-right">({{cat.count}})</span></li>
                             </ul>
                         </div>
                         <div class="blog-widget">
                             <h4 class="fw-title">Recent Posts</h4>
                             <div class="rc__post-wrapper">
-                                <div class="rc__post-item">
+                                <div *ngFor="let blog of blogs;" class="rc__post-item">
                                     <div class="rc__post-thumb">
-                                        <a href="blog-details.html"><img src="assets/img/blog/rc_post01.jpg" alt="img"></a>
+                                        <a href="blogs/{{blog.slug}}"><img
+                                                src="{{apiUrl+'/assets/'+blog.featured_image?.id+'?fit=cover&width=112&height=88&quality=80'}}"
+                                                alt="img"></a>
                                     </div>
                                     <div class="rc__post-content">
-                                        <h6 class="title"><a href="blog-details.html">zombie TOURNAMENT
-                                        land max</a></h6>
-                                        <span class="date">aug 19, 2023</span>
-                                    </div>
-                                </div>
-                                <div class="rc__post-item">
-                                    <div class="rc__post-thumb">
-                                        <a href="blog-details.html"><img src="assets/img/blog/rc_post02.jpg" alt="img"></a>
-                                    </div>
-                                    <div class="rc__post-content">
-                                        <h6 class="title"><a href="blog-details.html">play to earn crypto games</a></h6>
-                                        <span class="date">aug 19, 2023</span>
-                                    </div>
-                                </div>
-                                <div class="rc__post-item">
-                                    <div class="rc__post-thumb">
-                                        <a href="blog-details.html"><img src="assets/img/blog/rc_post03.jpg" alt="img"></a>
-                                    </div>
-                                    <div class="rc__post-content">
-                                        <h6 class="title"><a href="blog-details.html">nft games android
-                                        land max</a></h6>
-                                        <span class="date">aug 19, 2023</span>
+                                        <h6 class="title"><a href="blogs/{{blog.slug}}">{{blog.title}}</a></h6>
+                                        <span class="date">{{formatDate(blog.date_update ? blog.date_update :
+                                            blog.date_created)}}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="blog-widget">
+                        <!-- <div class="blog-widget">
                             <h4 class="fw-title">Newsletter</h4>
                             <div class="sidebar__newsletter">
                                 <p>Lorem ipsum sitamet conteur adipiscin</p>
@@ -267,7 +245,7 @@
                                 <a href="#">Matches</a>
                                 <a href="#">Streamers</a>
                             </div>
-                        </div>
+                        </div> -->
                     </aside>
                 </div>
             </div>

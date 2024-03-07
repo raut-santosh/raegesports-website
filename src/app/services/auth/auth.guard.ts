@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     }
 
     // User is not authenticated or token is expired, redirect to login page
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/auth/login']);
     return false;
   }
 

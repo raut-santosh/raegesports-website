@@ -77,6 +77,10 @@ export class ApiService {
     if (params?.filter !== undefined && params?.filter !== null) {
       params.filter = JSON.stringify(params.filter);
     }
+
+    if(params?.aggregate !== undefined && params?.aggregate !== null){
+      params.aggregate = JSON.stringify(params.aggregate);
+    }
   
     const get$ = this.http.get<any>(urlendpoint, {
       params: this.removeUndefinedParams(params),
@@ -272,5 +276,15 @@ export class ApiService {
     htmlEntityElement.innerHTML = value;
     return htmlEntityElement.textContent || '';
   }
+
+  // formatDate(dateStr: string): string {
+  //   const date = new Date(dateStr);
+  //   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  //   const month = months[date.getMonth()];
+  //   const day = date.getDate();
+  //   const year = date.getFullYear();
+  //   return `${month} ${day}, ${year}`;
+  // }
+
 
 }
