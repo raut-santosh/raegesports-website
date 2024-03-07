@@ -59,21 +59,27 @@
                     <h3 *ngIf="blogs.length === 0">No results found.</h3>
                     <div class="pagination__wrap">
                         <ul class="list-wrap d-flex flex-wrap justify-content-center">
-                            <li>
-                                <a class="next page-numbers">
-                                    <i class="fas fa-angle-double-left"></i>
-                                </a>
+                          <li>
+                            <button class="next page-numbers" (click)="prevPage()">
+                              <i class="fas fa-angle-double-left"></i>
+                            </button>
+                          </li>
+                          <ng-container *ngFor="let page of getPageNumbers()">
+                            <li *ngIf="page === 'ellipsis'">
+                              <span>...</span>
                             </li>
-                            <li><span class="page-numbers ">01</span></li>
-                            <li><a class="page-numbers current">02</a></li>
-                            <li><a class="page-numbers">03</a></li>
-                            <li>
-                                <a class="next page-numbers">
-                                    <i class="fas fa-angle-double-right"></i>
-                                </a>
+                            <li *ngIf="page !== 'ellipsis'">
+                              <button class="page-numbers" [class.current]="currentPage === page" (click)="getBlogs(page)">{{ page }}</button>
                             </li>
+                          </ng-container>
+                          <li>
+                            <button class="next page-numbers" (click)="nextPage()">
+                              <i class="fas fa-angle-double-right"></i>
+                            </button>
+                          </li>
                         </ul>
-                    </div>
+                      </div>
+                      
                 </div>
                 <div class="blog-post-sidebar">
                     <aside class="blog-sidebar">
