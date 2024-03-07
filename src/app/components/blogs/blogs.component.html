@@ -35,7 +35,7 @@
                             <div class="blog-post-meta">
                                 <ul class="list-wrap">
                                     <li>By<a>{{blog.user_created.first_name +' '+blog.user_created.last_name}}</a></li>
-                                    <li><i class="far fa-calendar-alt"></i>{{blog.date_update ? blog.date_update : blog.date_created}}</li>
+                                    <li><i class="far fa-calendar-alt"></i>{{formatDate(blog.date_update ? blog.date_update : blog.date_created)}}</li>
                                     <!-- <li><i class="far fa-comments"></i><a><?php echo $blog['commentCount']; ?></a></li> -->
                                 </ul>
                             </div>
@@ -83,6 +83,17 @@
                                 <button type="submit"><i class="flaticon-loupe"></i></button>
                             </form>
                         </div>
+                        <div class="blog-widget widget_categories">
+                            <h4 class="fw-title">CATEGORIES</h4>
+                            <ul class="list-wrap">
+                                <li><a href="#">gaming</a><span class="float-right">(11)</span></li>
+                                <li><a href="#">ELECTRONIC</a><span class="float-right">(4)</span></li>
+                                <li><a href="#">online</a><span class="float-right">(21)</span></li>
+                                <li><a href="#">TOURNAMENT</a><span class="float-right">(15)</span></li>
+                                <li><a href="#">controller</a><span class="float-right">(2)</span></li>
+                                <li><a href="#">live</a><span class="float-right">(7)</span></li>
+                            </ul>
+                        </div>
                         <div class="blog-widget">
                             <h4 class="fw-title">Recent Posts</h4>
                             <div class="rc__post-wrapper">
@@ -92,7 +103,7 @@
                                     </div>
                                     <div class="rc__post-content">
                                         <h6 class="title"><a href="blogs/{{blog.slug}}">{{blog.title}}</a></h6>
-                                        <span class="date">{{blog.date_created}}</span>
+                                        <span class="date">{{formatDate(blog.date_created)}}</span>
                                     </div>
                                 </div>
                             </div>

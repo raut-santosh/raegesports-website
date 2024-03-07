@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { ApiService } from'src/app/services';
 import { environment } from 'src/environments/environments';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css']
 })
 export class BlogsComponent {
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService, private datePipe: DatePipe){}
 
   blogs: any[] = [];
   apiUrl = environment.apiUrl;
@@ -26,5 +27,10 @@ export class BlogsComponent {
         console.log(err);
       }
     )
+  }
+
+
+  formatDate(date:any){
+    return this.datePipe.transform(date, 'MMM dd, yyyy');
   }
 }

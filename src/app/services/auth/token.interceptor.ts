@@ -54,6 +54,7 @@ export class TokenInterceptor implements HttpInterceptor {
       {url: '/news', methods: ['GET'] }, // Skip only for GET method for /}
       {url: '/contact_us', methods: ['GET'] }, // Skip only for GET method for /}
       {url: '/contact_us', methods: ['POST'] }, // Skip only for GET method for /}
+      {url: '/categories', methods: ['GET'] }, // Skip only for GET method for /}
       // Add more routes as needed
     ];
 
