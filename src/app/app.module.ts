@@ -21,6 +21,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { FormsModule } from '@angular/forms';
 import { BlogDetailsComponent } from './components/blog-details/blog-details.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { TermsComponent } from './components/terms/terms.component';
+import { PolicyComponent } from './components/policy/policy.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     ContactComponent,
     BlogDetailsComponent,
     NotificationsComponent,
+    TermsComponent,
+    PolicyComponent,
   ],
   imports: [
     BrowserModule,
