@@ -9,6 +9,8 @@ import { NewsComponent } from './components/news/news.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { BlogDetailsComponent } from './components/blog-details/blog-details.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { TermsComponent } from './components/terms/terms.component';
+import { PolicyComponent } from './components/policy/policy.component';
 
 const routes: Routes = [
   {
@@ -50,6 +52,14 @@ const routes: Routes = [
   {
     path: 'notifications',
     component: NotificationsComponent
+  },
+  {
+    path: 'terms-and-conditions',
+    component: TermsComponent
+  },
+  {
+    path: 'privacy-policy',
+    component: PolicyComponent
   }
 ];
 
