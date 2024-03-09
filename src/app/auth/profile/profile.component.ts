@@ -16,6 +16,7 @@ export class ProfileComponent {
   model: any = {};
   avatar: any;
   isEdit: boolean = false;
+  isPassChange: boolean = false;
   imgUrl:any;
   tournaments: any = [];
   countdowns: string[] = [];
@@ -52,7 +53,9 @@ export class ProfileComponent {
   formSubmit(event:any){
     delete this.model['tfa_secret']
     delete this.model['password']
-    this.apiService.save('users/me', this.model).subscribe(
+    delete this.model['provider']
+    delete this.model['external_identifier']
+    this.apiService.save('/users/me', this.model).subscribe(
       (response) => {
         console.log('user updated: ', response)
         Swal.fire({
@@ -71,17 +74,7 @@ export class ProfileComponent {
   }
 
   toggleEdit(){
-    // if(this.authService.currentUser.user){
-    //   this.isEdit = !this.isEdit;
-    // }else{
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Please login first to update profile!',
-    //     showConfirmButton: false, // Remove the "OK" button
-    //     timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
-    //   });
-    //   this.router.navigate(['/auth/login']);
-    // }
+    this.isEdit = !this.isEdit;
   }
 
   updateAvtar(event: any): void {
@@ -102,14 +95,30 @@ export class ProfileComponent {
   //  )
   }
   
-  participatedTournaments(){
+  participatedTournaments() {
     this.apiService.get('tournaments_directus_users?fields=*,tournaments_id.*,directus_users_id.*').subscribe(
-      res => {
-        console.log(res)
-        this.tournaments = res.data;
-      }
-    )
-  }
+        res => {
+            console.log(res);
+            const data = res.data;
+            
+            const uniqueTournaments: any[] = [];
+            const uniqueIds = new Set();
+
+            data.forEach((item:any) => {
+                const tournamentId = item.tournaments_id.id;
+
+                if (!uniqueIds.has(tournamentId)) {
+                    uniqueIds.add(tournamentId);
+                    uniqueTournaments.push(item);
+                }
+            });
+
+            console.log(uniqueTournaments);
+            this.tournaments = uniqueTournaments;
+        }
+    );
+}
+
 
   calculateCountdown(start_date: string): string {
     const parsedStartDate = new Date(start_date);
@@ -132,5 +141,8 @@ export class ProfileComponent {
     this.countdowns = this.tournaments.map((tournament:any) => this.calculateCountdown(tournament.tournaments_id.start_date));
   }
     
-  
+  formatDate(date:any){
+    return this.datePipe.transform(date, 'MMM dd, yyyy');
+  }
+
 }

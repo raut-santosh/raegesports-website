@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { ApiService } from'src/app/services';
 import { environment } from 'src/environments/environments';
 import { DatePipe } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-blogs',
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css']
 })
 export class BlogsComponent {
-  constructor(private apiService: ApiService, private datePipe: DatePipe){
+  constructor(private apiService: ApiService, private datePipe: DatePipe, private router: Router, private route: ActivatedRoute){
     this.totalItems = 0;
   }
 
@@ -21,7 +22,16 @@ export class BlogsComponent {
   currentPage: number = 1;
   pageSize: number = 10; // Number of items per page
   totalItems: number = 0;
+  category: any;
   ngOnInit(){
+    this.route.queryParams.subscribe(params => {
+      this.category = params['category'];
+      if (this.category) {
+        console.log('Category:', this.category);
+        // Now you can use the category value in your API call
+       this.getBlogs();
+      }
+    });
     this.getBlogs();
     this.getCats();
     this.getRecents();
@@ -32,8 +42,12 @@ export class BlogsComponent {
     const params = {
       fields: '*.*',
       offset: offset.toString(),
-      limit: this.pageSize.toString()
+      limit: this.pageSize.toString(),
     };
+
+    if (this.category) {
+      (params as any)['filter'] = { category: this.category };
+    }
   
     this.apiService.get('blogs', params).subscribe(
       res => {

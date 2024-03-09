@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -19,8 +19,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     CommonModule,
     AuthRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
+  schemas: [NO_ERRORS_SCHEMA],
   providers: [ HelperService]
 })
 export class AuthModule { }

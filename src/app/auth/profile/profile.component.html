@@ -22,412 +22,161 @@
             </div>
         </div>
     </section>
-    <!-- breadcrumb-area-end -->
-
-    <!-- shop-area -->
-    <section class="shop-area shop-details-area">
-        <div class="container">
-            <div *ngIf="!isEdit" class="row">
-                <div class="shop__details-images-wrap">
-                    <div class="tab-content" id="imageTabContent">
-                        <div class="tab-pane show active" id="one" role="tabpanel" aria-labelledby="one-tab">
-                            <a href="{{ apiService.currentUserValue?.avatar }}" class="popup-image"><img
-                                    src="{{apiUrl + '/assets/' + apiService.currentUserValue?.avatar }}" /></a>
+    <div id="myCopyright">
+        <div class="bg"></div>
+        <div class="custom-main" align="center">
+            <!-- Change your profile -->
+            <img class="pf" src="{{apiUrl+'/assets/'+apiService.currentUserValue?.avatar || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}}" />
+            <div class="contain">
+                <div class="i_space"></div>
+                <!-- Change your name -->
+                <h2 class="title">{{apiService.currentUserValue?.first_name}}</h2>
+                <!-- Change your bio -->
+                <p class="summary">{{apiService.currentUserValue?.description}}</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <ul class="profile-list-items-l">
+                                <li><b>Email:</b> {{apiService.currentUserValue?.email}}</li>
+                                <li>Mobile: {{apiService.currentUserValue?.mobile}}</li>
+                                <li>Address: {{apiService.currentUserValue?.location}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <ul class="profile-list-items-r">
+                                <li>Balance: {{apiService.currentUserValue?.balance}} Rs</li>
+                                <li>Game Username: {{apiService.currentUserValue?.game_username}}</li>
+                                <li>In Game ID: {{apiService.currentUserValue?.in_game_id}}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="shop__details-content">
-                    <!-- <div class="shop__details-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span class="rating-count">( 3 Customer Review )</span>
-                    </div> -->
-                    <li class="edit-btn-parent">
-                        <a (click)="toggleEdit()" class="edit-btn">
-                            <i class="flaticon-edit"></i>
-                            Edit Profile
-                        </a>
-                    </li>
-
-                    <h2 class="title">
-                        {{ model.first_name || "Guest" }} {{ model.last_name || "User" }}
-                    </h2>
-                    <div class="shop__details-price">
-                        <span class="amount"><span class="stock-status">Account Balance -</span> &#8377;
-                            {{ model.balance }}
-                        </span>
-                    </div>
-                    <div class="shop__details-short-description">
-                        <p>{{ model.description }}</p>
-                    </div>
-                    <div *ngIf="model.tags" class="shop__details-model d-flex align-items-center">
-                        <p class="model m-0">Tags:</p>
-                        <ul class="list-wrap d-flex align-items-center">
-                            <li *ngFor="let t of model.tags; let i = index" [class.active]="i === 0">
-                                {{ t }}
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- <div class="shop__details-qty">
-                        <div class="cart-plus-minus d-flex flex-wrap align-items-center">
-                            <form action="#" class="quantity num-block">
-                                <input type="text" class="in-num" value="1" readonly="">
-                                <div class="qtybutton-box">
-                                    <span class="plus"><i class="fas fa-angle-up"></i></span>
-                                    <span class="minus dis"><i class="fas fa-angle-down"></i></span>
-                                </div>
-                            </form>
-                            <button class="shop__details-cart-btn">add to cart</button>
-                        </div>
-                    </div> -->
-                    <div class="shop__details-bottom">
-                        <div *ngIf="model.email" class="posted_in">
-                            <b>Email :</b>
-                            <a>{{ model.email }}</a>
-                        </div>
-                        <div *ngIf="model.location" class="tagged_as">
-                            <b>Location :</b>
-                            <a>{{ model.location }}</a>
-                        </div>
-                        <div *ngIf="model.mobile" class="tagged_as">
-                            <b>Mobile :</b>
-                            <a>{{ model.mobile }}</a>
-                        </div>
-                        <div *ngIf="model.in_game_id" class="tagged_as">
-                            <b>In Game Id :</b>
-                            <a>{{ model.in_game_id }}</a>
-                        </div>
-                        <div *ngIf="model.game_username" class="tagged_as">
-                            <b>In Game Username:</b>
-                            <a>{{ model.game_username }}</a>
-                        </div>
-                        <div class="tagged_as">
-                            <b>DOB :</b>
-                            <a>{{ model.date_of_birth }}</a>
-                        </div>
-                        <!-- <div class="product_share">
-                            <b>Share :</b>
-                            <a href="shop.html"><i class="fab fa-facebook-f"></i></a>
-                            <a href="shop.html"><i class="fab fa-twitter"></i></a>
-                            <a href="shop.html"><i class="fab fa-instagram"></i></a>
-                        </div> -->
-                        <a href="/auth/changePassword" class="tg-btn-1 -btn-yellow"><span style="color:black;font-weight: bold;">Change password</span></a>
-                    </div>
-                </div>
+                <!-- Change your link maps -->
+                <button (click)="toggleEdit(); apiService.playS()" style="display:inline-block;color:white;border:1px solid white;" class="btn btn-sound" title="Edit Profile" alt="Edit" target="_blank">
+                    <i class="bi bi-pencil-square" aria-hidden="true"></i>
+                </button>
+                <!-- Change your link e-mail -->
+                <!-- <button style="display:inline-block;color:white;border:1px solid white;margin-left:5px;" class="btn btn-sound" title="Change Password" alt="Change Pass" target="_blank">
+                    <i class="bi bi-key" aria-hidden="true"></i>
+                </button> -->
             </div>
-            <div *ngIf="isEdit" class="row">
-                <div class="col-12">
-                    <div class="product__desc-wrap">
-                        <!-- <ul class="nav nav-tabs" id="descriptionTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="false">Additional Information</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews (0)</button>
-                            </li>
-                        </ul> -->
-                        <div class="tab-content" id="descriptionTabContent">
-                            <!-- <div class="tab-pane animation-none fade" id="description" role="tabpanel" aria-labelledby="description-tab">
-                                <p>Lorem ipsum dolor sit amet, consteur adipiscing Duis elementum solliciin is yaugue euismods Nulla ullaorper. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
-                                ever since the 1500s.</p>
-                                <p>Don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour.</p>
-                            </div> -->
-                            <!-- <div class="tab-pane animation-none fade" id="info" role="tabpanel" aria-labelledby="info-tab">
-                                <table class="table table-sm">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">General</th>
-                                            <td>PS5 Digital Platform</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Technical Information</th>
-                                            <td>Qualcomm Snapdragon XR2</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Display</th>
-                                            <td>3664 x 1920</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">RAM & Storage</th>
-                                            <td>8GB/256GB</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Included</th>
-                                            <td>PS5 VR Streaming Assistant</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> -->
-                            <div class="tab-pane animation-none fade show active" id="reviews" role="tabpanel"
-                                aria-labelledby="reviews-tab">
-                                <div class="product__desc-review text-center">
-                                    <div class="product__desc-review-title mb-15">
-                                        <h5 class="title">Edit Profile</h5>
-                                        <div class="profile-img">
-                                            <label for="fileInput" class="file-label">
-                                                <img id="profileImage" class="edit-profile-img" [src]="imgUrl"
-                                                    alt="Profile image" />
-                                                <!-- <i class="bi bi-pencil-square edit-icon"></i> -->
-                                            </label>
-                                            <input type="file" id="fileInput" class="file-input" accept="image/*"
-                                                style="display: none" (change)="updateAvtar($event)" />
-                                        </div>
-                                    </div>
-                                    <div class="contact__form-wrap">
-                                        <form (ngSubmit)="formSubmit($event)" id="contact-form" method="POST">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.first_name" name="first_name"
-                                                            id="first_name" type="text" class="form-control"
-                                                            placeholder="First Name *" required tabindex="1" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.last_name" name="last_name"
-                                                            id="last_name" type="text" class="form-control"
-                                                            placeholder="Last Name *" required tabindex="2" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.location" name="location"
-                                                            id="location" type="text" class="form-control"
-                                                            placeholder="Location" tabindex="3" />
-                                                    </div>
-                                                </div>
 
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.mobile" name="mobile" id="mobile"
-                                                            type="number" class="form-control" placeholder="Mobile *"
-                                                            required tabindex="4" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.email" name="email" id="email"
-                                                            type="email" class="form-control" placeholder="Email *"
-                                                            required tabindex="5" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="form-group input-grp">
-                                                        <input [(ngModel)]="model.date_of_birth" name="date_of_birth"
-                                                            id="date_of_birth" type="date" class="form-control"
-                                                            placeholder="Date of birth " tabindex="6" />
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="row">
-                                                <div class="col-md-12 mt-3">
-                                                    <button type="submit" class="submit-btn">
-                                                        Update profile
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!-- <p class="ajax-response"></p> -->
-                                    </div>
-                                </div>
-                            </div>
+            <!-- edit profile -->
+            <div *ngIf="isEdit" class="contain">
+                <div class="i_space"></div>
+                <form (ngSubmit)="formSubmit($event)" class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">First Name</label>
+                            <input [(ngModel)]="model.first_name" name="first_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                            <input [(ngModel)]="model.last_name" name="last_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input [(ngModel)]="model.email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input [(ngModel)]="model.mobile" name="mobile" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Location</label>
+                            <input [(ngModel)]="model.location" name="location" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Description</label>
+                            <input [(ngModel)]="model.description" name="description" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Date of Birth</label>
+                            <input [(ngModel)]="model.date_of_birth" name="date_of_birth" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Game Username</label>
+                            <input [(ngModel)]="model.game_username" name="game_username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">In Game ID</label>
+                            <input [(ngModel)]="model.in_game_id" name="in_game_id" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input [(ngModel)]="model.password" type="password" name="password" class="form-control" id="exampleInputPassword1">
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <button type="submit" class="shop__details-cart-btn">Submit</button>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <button type="button" (click)="toggleEdit()" class="shop__details-cart-btn">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+                
             </div>
-            <!-- <div class="related__product-area">
-                <div class="related__product-wrapper">
-                    <h2 class="related-title">Related Products</h2>
-                    <div class="row justify-content-center row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1">
-                        <div class="col">
-                            <div class="shop__item">
-                                <div class="shop__item-thumb">
-                                    <a href="shop-details.html"><img src="assets/img/products/product01.jpg" alt="img"></a>
-                                    <a href="#" class="wishlist-button"><i class="far fa-heart"></i></a>
-                                </div>
-                                <div class="shop__item-line"></div>
-                                <div class="shop__item-content">
-                                    <div class="shop__item-content-top">
-                                        <h4 class="title"><a href="shop-details.html">Nintendo Switch</a></h4>
-                                        <div class="shop__item-price">$29</div>
-                                    </div>
-                                    <div class="shop__item-cat"><a href="shop.html">E-SPORTS</a></div>
-                                </div>
-                            </div>
+
+            <!-- change password -->
+            <!-- <div *ngIf="isPassChange" class="contain">
+                <div class="i_space"></div>
+                <form (ngSubmit)="formSubmit($event)" class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">Old Password</label>
+                            <input [(ngModel)]="model.password" name="first_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col">
-                            <div class="shop__item">
-                                <div class="shop__item-thumb">
-                                    <a href="shop-details.html"><img src="assets/img/products/product02.jpg" alt="img"></a>
-                                    <a href="#" class="wishlist-button"><i class="far fa-heart"></i></a>
-                                </div>
-                                <div class="shop__item-line"></div>
-                                <div class="shop__item-content">
-                                    <div class="shop__item-content-top">
-                                        <h4 class="title"><a href="shop-details.html">Headphone</a></h4>
-                                        <div class="shop__item-price">$69</div>
-                                    </div>
-                                    <div class="shop__item-cat"><a href="shop.html">accessories</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="shop__item">
-                                <div class="shop__item-thumb">
-                                    <a href="shop-details.html"><img src="assets/img/products/product03.jpg" alt="img"></a>
-                                    <a href="#" class="wishlist-button"><i class="far fa-heart"></i></a>
-                                </div>
-                                <div class="shop__item-line"></div>
-                                <div class="shop__item-content">
-                                    <div class="shop__item-content-top">
-                                        <h4 class="title"><a href="shop-details.html">replica Axe</a></h4>
-                                        <div class="shop__item-price">$39</div>
-                                    </div>
-                                    <div class="shop__item-cat"><a href="shop.html">E-SPORTS</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="shop__item">
-                                <div class="shop__item-thumb">
-                                    <a href="shop-details.html"><img src="assets/img/products/product04.jpg" alt="img"></a>
-                                    <a href="#" class="wishlist-button"><i class="far fa-heart"></i></a>
-                                </div>
-                                <div class="shop__item-line"></div>
-                                <div class="shop__item-content">
-                                    <div class="shop__item-content-top">
-                                        <h4 class="title"><a href="shop-details.html">ps5 controller</a></h4>
-                                        <div class="shop__item-price">$49</div>
-                                    </div>
-                                    <div class="shop__item-cat"><a href="shop.html">accessories</a></div>
-                                </div>
-                            </div>
+                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label">New Password</label>
+                            <input [(ngModel)]="model.last_name" name="last_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <button type="submit" class="shop__details-cart-btn">Submit</button>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <button type="button" (click)="toggleEdit()" class="shop__details-cart-btn">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+                
             </div> -->
-        </div>
-    </section>
-    <section *ngIf="tournaments.length > 0" class="tournament__list-area section-pb-120 section-pt-120" data-background="assets/img/bg/tournament_bg.jpg">
-        <div class="container">
-            <div class="tournament__wrapper">
-                <div class="row align-items-end mb-60">
-                    <div class="col-lg-8">
-                        <div class="section__title text-center text-lg-start title-shape-none">
-                            <span class="sub-title tg__animate-text">tournament List</span>
-                            <h3 class="title">Participated tournaments</h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="section__title-link">
-                            <a href="tournament.html">EXPLORE MORE</a>
-                        </div>
-                    </div>
-                </div>
+
+
+            <div class="contain_2">
+                <h3 class="title">Participated Tournaments</h3>
                 <div class="row">
-                    <div class="col-12">
-                        <div class="tournament__list-item-wrapper">
-                            <div *ngFor="let tournament of tournaments; let i=index;" class="tournament__list-item wow fadeInUp" data-wow-delay=".2s">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1116.562" height="163.37" viewBox="0 0 1116.562 163.37">
-                                    <path class="background-path" d="M708,1784l28-27s4.11-5.76,18-6,702-1,702-1a37.989,37.989,0,0,1,16,9c7.47,7.08,37,33,37,33s9.02,9.47,9,18,0,42,0,42-0.19,9.43-11,19-32,30-32,30-5.53,11.76-21,12-985,0-985,0a42.511,42.511,0,0,1-26-13c-11.433-12.14-34-32-34-32s-6.29-5.01-7-17,0-43,0-43-1-5.42,12-18,34-32,34-32,10.4-8.28,19-8,76,0,76,0a44.661,44.661,0,0,1,21,11c9.268,8.95,22,22,22,22Z" transform="translate(-401.563 -1749.875)" />
-                                </svg>
-                                <div class="tournament__list-content">
-                                    <div class="tournament__list-thumb">
-                                        <a href="tournament-details.html"><img src="assets/img/others/tournament_thumb01.png" alt="thumb"></a>
-                                    </div>
-                                    <div class="tournament__list-name">
-                                        <h5 class="team-name">{{tournament.tournaments_id.title}}</h5>
-                                        <span class="status">Online</span>
-                                    </div>
-                                    <div class="tournament__list-prize">
-                                        <h6 class="title">Fees</h6>
-                                        <i class="fas fa-trophy"></i>
-                                        <span>&#x20B9; {{tournament.tournaments_id.ticket_price}}</span>
-                                        <h6 class="title">Prize</h6>
-                                        <i class="fas fa-trophy"></i>
-                                        <span>&#x20B9; {{tournament.tournaments_id.price}}</span>
-                                    </div>
-                                    <div class="tournament__list-time">
-                                        <h6 class="title">Time</h6>
-                                        
-                                        <!-- <span>10h : 15m</span> <br> -->
-                                        <span>{{datePipe.transform(tournament.tournaments_id.start_date, 'dd MMM yy,')}}</span> <br *ngIf="countdowns[i] !== 'End'">
-                                        <span>{{datePipe.transform(tournament.tournaments_id.start_date, 'h:mm a')}}</span> <br *ngIf="countdowns[i] !== 'End'">
-                                        <span><i class="fas fa-clock"></i>{{ countdowns[i] }}</span>
-                                    </div>
-                                    <!-- <div class="tournament__list-live">
-                                        <a>Participate<i class="far fa-play-circle"></i></a>
-                                    </div> -->
-                                </div>
+                    <!-- Button 1 - 2 -->
+                    <div class="column" *ngFor="let tournament of tournaments;">
+                        <div class="i_contain" onclick="button1()">
+                            <div class="i_cards">
+                                <img class="icon_logo" alt="Image" src="assets/img/others/tournament_thumb03.png" />
+                                <h2 class="i_title">{{tournament.tournaments_id.title}}</h2>
+                                <!-- Change your username -->
+                                <p class="i_summary">{{formatDate(tournament.tournaments_id.start_date)}} - {{countdowns}}</p>
                             </div>
-                            <!-- <div class="tournament__list-item wow fadeInUp" data-wow-delay=".4s">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1116.562" height="163.37" viewBox="0 0 1116.562 163.37">
-                                    <path class="background-path" d="M708,1784l28-27s4.11-5.76,18-6,702-1,702-1a37.989,37.989,0,0,1,16,9c7.47,7.08,37,33,37,33s9.02,9.47,9,18,0,42,0,42-0.19,9.43-11,19-32,30-32,30-5.53,11.76-21,12-985,0-985,0a42.511,42.511,0,0,1-26-13c-11.433-12.14-34-32-34-32s-6.29-5.01-7-17,0-43,0-43-1-5.42,12-18,34-32,34-32,10.4-8.28,19-8,76,0,76,0a44.661,44.661,0,0,1,21,11c9.268,8.95,22,22,22,22Z" transform="translate(-401.563 -1749.875)" />
-                                </svg>
-                                <div class="tournament__list-content">
-                                    <div class="tournament__list-thumb">
-                                        <a href="tournament-details.html"><img src="assets/img/others/tournament_thumb02.png" alt="thumb"></a>
-                                    </div>
-                                    <div class="tournament__list-name">
-                                        <h5 class="team-name">Hatlax TM.</h5>
-                                        <span class="status">Online</span>
-                                    </div>
-                                    <div class="tournament__list-prize">
-                                        <h6 class="title">Prize</h6>
-                                        <i class="fas fa-trophy"></i>
-                                        <span>$85000</span>
-                                    </div>
-                                    <div class="tournament__list-time">
-                                        <h6 class="title">Time</h6>
-                                        <i class="fas fa-clock"></i>
-                                        <span>12h : 10m</span>
-                                    </div>
-                                    <div class="tournament__list-live">
-                                        <a href="https://www.twitch.tv/videos/1726788358" target="_blank">Live now <i class="far fa-play-circle"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tournament__list-item wow fadeInUp" data-wow-delay=".6s">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1116.562" height="163.37" viewBox="0 0 1116.562 163.37">
-                                    <path class="background-path" d="M708,1784l28-27s4.11-5.76,18-6,702-1,702-1a37.989,37.989,0,0,1,16,9c7.47,7.08,37,33,37,33s9.02,9.47,9,18,0,42,0,42-0.19,9.43-11,19-32,30-32,30-5.53,11.76-21,12-985,0-985,0a42.511,42.511,0,0,1-26-13c-11.433-12.14-34-32-34-32s-6.29-5.01-7-17,0-43,0-43-1-5.42,12-18,34-32,34-32,10.4-8.28,19-8,76,0,76,0a44.661,44.661,0,0,1,21,11c9.268,8.95,22,22,22,22Z" transform="translate(-401.563 -1749.875)" />
-                                </svg>
-                                <div class="tournament__list-content">
-                                    <div class="tournament__list-thumb">
-                                        <a href="tournament-details.html"><img src="assets/img/others/tournament_thumb03.png" alt="thumb"></a>
-                                    </div>
-                                    <div class="tournament__list-name">
-                                        <h5 class="team-name">Spartan iv</h5>
-                                        <span class="status">Online</span>
-                                    </div>
-                                    <div class="tournament__list-prize">
-                                        <h6 class="title">Prize</h6>
-                                        <i class="fas fa-trophy"></i>
-                                        <span>$45000</span>
-                                    </div>
-                                    <div class="tournament__list-time">
-                                        <h6 class="title">Time</h6>
-                                        <i class="fas fa-clock"></i>
-                                        <span>10h : 15m</span>
-                                    </div>
-                                    <div class="tournament__list-live">
-                                        <a href="https://www.twitch.tv/videos/1726788358" target="_blank">Live now <i class="far fa-play-circle"></i></a>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
+                    
                 </div>
             </div>
+            
         </div>
-    </section>
-    <!-- shop-area-end -->
+	</div>
 </main>
 <!-- main-area-end -->
