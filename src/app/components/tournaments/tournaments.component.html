@@ -243,7 +243,7 @@
                                 </svg>
                                 <div class="tournament__list-content">
                                     <div class="tournament__list-thumb">
-                                        <a href="tournament-details.html"><img src="assets/img/others/tournament_thumb01.png" alt="thumb"></a>
+                                        <a href="tournament-details.html"><img src="{{apiUrl + '/assets/' + tournament.game.image + '?fit=inside&width=354&height=230&quality=80'}}" alt="thumb"></a>
                                     </div>
                                     <div class="tournament__list-name">
                                         <h5 class="team-name">{{tournament.title}}</h5>

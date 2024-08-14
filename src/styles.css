@@ -2064,7 +2064,7 @@ Default Tab Style
   display: inline-block;
 }
 .logo img {
-  max-width: 170px;
+  max-width: 240px;
 }
 
 .tg-sticky-menu {
@@ -9533,7 +9533,7 @@ blockquote p {
   display: block;
 }
 .footer-social img {
-  max-width: 30px;
+  max-width: 45px;
 }
 .footer-style-one .footer__top-wrap .row:first-child [class*=col-]:nth-child(4n+2) .footer-widget {
   padding-left: 40px;

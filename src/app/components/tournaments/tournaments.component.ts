@@ -82,7 +82,7 @@ export class TournamentsComponent implements OnInit, OnDestroy {
 
   getTournaments(gameId: any) {
     console.log('tournament called', gameId);
-    this.apiService.callApi(`items/tournaments?filter={"game":{"_eq":"${gameId}"}}`, 'get').subscribe(res => {
+    this.apiService.callApi(`items/tournaments?filter={"game":{"_eq":"${gameId}"}}&fields=*.*`, 'get').subscribe(res => {
       console.log('tournament res',res);
       this.tournaments = res.data;
       this.updateCountdowns();
@@ -114,53 +114,54 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   participate(tournament: any){
     this.openModal().then((result) => {
       if(result.refresh == true){
-        if(tournament.ticket_price === 'Free' || tournament.ticket_price === 'free' || tournament.ticket_price === '0'){
-          // console.log('user', this.authService.currentUser.user)
-          // if(this.authService.currentUser.user.id){
+        if(tournament.ticket_price === 'Free' || tournament.ticket_price === 'free' || tournament.ticket_price === '0' || tournament.ticket_price === 0){
+          console.log('user', this.apiService.currentUser)
+          if(this.apiService.currentUserValue.id){
     
-          //   this.apiService.callApi(`my-api/participate?access_token=${environment.access_token}`,'post',{
-          //     userId: this.authService.currentUser.user.id,
-          //     tournamentId: tournament.id
-          //   }).subscribe(
-          //     (res) => {
-          //       console.log(res);
-          //       if(res.success){
-          //         Swal.fire({
-          //           title: 'Participated successfully!',
-          //           text: 'your participated to the tournament',
-          //           icon: 'success', // success, error, warning, info, or 'question'
-          //           confirmButtonText: 'OK',
-          //           confirmButtonColor: '#3085d6',
-          //         }); 
-          //       }
-          //     },
-          //     (err) => {
-          //       console.log(err)
-          //       Swal.fire({
-          //         title: 'Error while participating!',
-          //         text: 'your not participated to the tournament',
-          //         icon: 'error', // success, error, warning, info, or 'question'
-          //         confirmButtonText: 'OK',
-          //         confirmButtonColor: '#3085d6',
-          //       }); 
-          //     }
-          //   );
+            this.apiService.callApi(`my-api/participate`,'post',{
+              userId: this.apiService.currentUserValue.id,
+              tournamentId: tournament.id
+            }).subscribe(
+              (res) => {
+                console.log(res);
+                if(res.success){
+                  Swal.fire({
+                    title: 'Participated successfully!',
+                    text: 'your participated to the tournament',
+                    icon: 'success', // success, error, warning, info, or 'question'
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3085d6',
+                  }); 
+                }
+              },
+              (err) => {
+                console.log(err)
+                Swal.fire({
+                  title: 'Error while participating!',
+                  text: 'your not participated to the tournament',
+                  icon: 'error', // success, error, warning, info, or 'question'
+                  confirmButtonText: 'OK',
+                  confirmButtonColor: '#3085d6',
+                }); 
+              }
+            );
                    
-          // }else{
-          //   Swal.fire({
-          //     title: 'Your not logged in!',
-          //     text: 'login first to participate in tournament',
-          //     icon: 'warning', // success, error, warning, info, or 'question'
-          //     confirmButtonText: 'OK',
-          //     confirmButtonColor: '#3085d6',
-          //   }).then((result) => {
-          //     if (result.isConfirmed) {
-          //       this.router.navigate(['/auth/login'])
-          //     }
-          //   }); 
-          // }
+          }else{
+            Swal.fire({
+              title: 'Your not logged in!',
+              text: 'login first to participate in tournament',
+              icon: 'warning', // success, error, warning, info, or 'question'
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#3085d6',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.router.navigate(['/auth/login'])
+              }
+            }); 
+          }
         }else{
-        // if it is paid tournament 
+          // if it is paid tournament 
+          console.log(this.apiService.currentUserValue);
         }
       }
     })

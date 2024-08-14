@@ -89,7 +89,7 @@ export class LoginComponent {
               showConfirmButton: false,
               timer: 2000
             });
-            this.router.navigate(['/auth/profile'])
+            this.router.navigate(['/'])
               .then(() => {
                 setTimeout(() => {
                   window.location.reload();

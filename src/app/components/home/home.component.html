@@ -396,18 +396,18 @@
                     <div class="col-xl-9 col-lg-10 col-md-11">
                         <div class="swiper-container gallery-active">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
+                                <div class="swiper-slide" *ngFor="let item of [].constructor(5); let i = index">
                                     <div class="gallery__item">
                                         <div class="gallery__thumb">
-                                            <a href="assets/img/gallery/gal1.jpg" data-cursor="-theme" data-cursor-text="View <br> Image" class="popup-image" title="PUBG Tournament"><img src="assets/img/gallery/gal1.jpg" alt="img"></a>
+                                            <a href="assets/img/slider/cs.png" data-cursor="-theme" data-cursor-text="View <br> Image" class="popup-image" title="PUBG Tournament"><img src="assets/img/slider/cs.png" alt="img"></a>
                                         </div>
                                         <div class="gallery__content">
-                                            <h3 class="title">pubg tournament</h3>
+                                            <h3 class="title">Daily Contest</h3>
                                             <span class="rate">rate 50%</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="swiper-slide">
+                                <!-- <div class="swiper-slide">
                                     <div class="gallery__item">
                                         <div class="gallery__thumb">
                                             <a href="assets/img/gallery/gal2.jpg" data-cursor="-theme" data-cursor-text="View <br> Image" class="popup-image" title="Assassin's Creed"><img src="assets/img/gallery/gal2.jpg" alt="img"></a>
@@ -450,7 +450,7 @@
                                             <span class="rate">rate 85%</span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- scrollbar -->
                             <div class="swiper-scrollbar"></div>
@@ -494,7 +494,7 @@
     <!-- team-area-end -->
 
     <!-- video-area -->
-    <section class="video__area video-bg tg-jarallax" data-background="assets/img/bg/video_bg.jpg">
+    <!-- <section class="video__area video-bg tg-jarallax" data-background="assets/img/bg/video_bg.jpg">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-6 col-lg-8 col-md-11">
@@ -507,7 +507,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- video-area-end -->
 
     <!-- roadMap-area -->
@@ -517,16 +517,16 @@
                 <div class="col-xl-10">
                     <div class="roadMap__inner">
                         <div class="row">
-                            <div class="col-xl-5 col-lg-6">
+                            <!-- <div class="col-xl-5 col-lg-6">
                                 <div class="roadMap__content">
-                                    <h2 class="title">watch live matches and highlights</h2>
-                                    <p>With Season 1 Ending with our play and Duis elementum sollicitudin is yaugue euismods Nulla ulla Player-focused updates games from Mobile App and Enjoy.</p>
+                                    <h2 class="title">Watch Highlights of the Tournament!</h2>
+                                    <p>Dive into the excitement with our official highlights from this year's thrilling tournament! Relive the most unforgettable moments, jaw-dropping plays, and standout performances that kept fans on the edge of their seats. From nail-biting finishes to spectacular goals and game-changing strategies, this video captures all the action you don't want to miss.</p>
                                     <a href="contact.html" class="tg-btn-1 -btn-yellow"><span>roadmap</span></a>
                                 </div>
                                 <div class="roadMap__img">
                                     <img src="assets/img/others/roadmap.png" class="tg-parallax" data-scale="1.5" data-orientation="down" alt="">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-xl-7 col-lg-6">
                                 <div class="roadMap__steps-wrap">
                                     <div *ngFor="let highlight of highlights;" class="roadMap__steps-item active">
