@@ -60,7 +60,7 @@
                             </div>
                             <div *ngIf="apiService.currentUserValue"  class="profile-image">
                                 <img style="cursor:pointer;" [src]="apiUrl + '/assets/' +apiService.currentUserValue?.avatar" alt="Profile Image">
-                                <b href="/auth/profile" style="margin-left:20px;cursor:pointer;">{{apiService.currentUserValue?.first_name+' '+apiService.currentUserValue?.last_name}}</b>
+                                <a href="/auth/profile" style="margin-left:20px;cursor:pointer;">{{apiService.currentUserValue?.first_name+' '+apiService.currentUserValue?.last_name}}</a>
                             </div>
                             
                             <div class="tgmobile__search">

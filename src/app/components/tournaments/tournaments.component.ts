@@ -112,6 +112,18 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   }
 
   participate(tournament: any){
+    if(!this.isProfileComplete()){
+      Swal.fire({
+        title: 'Incomplete Profile',
+        text: 'Please complete your profile first.',
+        icon: 'warning',
+        confirmButtonText: 'Update Profile',
+        preConfirm: () => {
+          this.router.navigate(['/auth/profile']);
+        }
+      });
+      return;
+    }
     this.openModal().then((result) => {
       if(result.refresh == true){
         if(tournament.ticket_price === 'Free' || tournament.ticket_price === 'free' || tournament.ticket_price === '0' || tournament.ticket_price === 0){
@@ -167,6 +179,19 @@ export class TournamentsComponent implements OnInit, OnDestroy {
     })
     
   }
+  isProfileComplete() {
+    const { first_name, last_name, email, password, avatar, location, mobile } = this.apiService.currentUserValue;
+
+    if (first_name && last_name && email && password && avatar && location && mobile) {
+      console.log('All fields are available and not null.');
+      return true;
+    } else {
+      console.log('Some fields are missing or null.');
+      return false;
+    }
+  } 
+  
+  
 
   openModal(itemId?: string) {  
     const modalRef = this.modalService.open(PlayerDetailsComponent, {
