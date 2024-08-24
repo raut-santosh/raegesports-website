@@ -180,6 +180,17 @@ export class TournamentsComponent implements OnInit, OnDestroy {
     
   }
   isProfileComplete() {
+    if(this.apiService.currentUserValue == null){
+      Swal.fire({
+        title: 'Login to participate in the tournament',
+        // text: 'Please complete your profile first.',
+        icon: 'warning',
+        confirmButtonText: 'Login',
+        preConfirm: () => {
+          this.router.navigate(['/auth/login']);
+        }
+      })
+    }
     const { first_name, last_name, email, password, avatar, location, mobile } = this.apiService.currentUserValue;
 
     if (first_name && last_name && email && password && avatar && location && mobile) {

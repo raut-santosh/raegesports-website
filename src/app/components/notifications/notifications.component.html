@@ -33,8 +33,8 @@
                     </div> -->
                     <div class="blog__avatar-info">
                         <!-- <span class="designation">Written by</span> -->
-                        <h4 class="name"><a href="#">{{notification.subject}}</a></h4>
-                        <p>{{apiService.htmlEntityDecode(notification.message)}}</p>
+                        <h4 class="name"><a href="#">{{notification.title}}</a></h4>
+                        <p>{{apiService.htmlEntityDecode(notification.description)}}</p>
                     </div>
                 </div>
                 <div *ngIf="notifications.length === 0" class="blog__avatar-wrap mb-65">

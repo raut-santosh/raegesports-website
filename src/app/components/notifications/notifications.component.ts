@@ -13,12 +13,15 @@ export class NotificationsComponent {
 
   ngOnInit() {
     this.getNotifications();
+    setInterval(() => {
+      this.getNotifications();
+    }, 20000);
   }
 
   getNotifications(){
-    this.apiService.get('notifications').subscribe(
+    this.apiService.get('notifications', {fields:"*.*"}).subscribe(
       res => {
-        console.log(res);
+        console.log('sam here',res.data);
         this.notifications = res.data;
       },
       err => {
