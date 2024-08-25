@@ -283,12 +283,13 @@ footer a {
   }
 }
 
-input[required] + label.required::after {
+/*input[required] + label.required::after {
   content: " *";
   color: red;
   font-weight: bold;
   margin-left: 5px;
 }
+*/
 
 /* Adjust to target labels coming before the input */
 label.required::after {
