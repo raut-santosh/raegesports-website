@@ -31,15 +31,12 @@ export class ProfileComponent {
   }
 
   ngOnInit(){
-    
     this.participatedTournaments();
     // Subscribe to the countdown
     this.countdownSubscription = interval(1000).subscribe(() => {
       this.updateCountdowns();
     });
-
     console.log(this.apiService.currentUserValue)
-    
   }
 
   ngOnDestroy() {
@@ -51,11 +48,20 @@ export class ProfileComponent {
   
 
   formSubmit(event:any){
-    delete this.model['tfa_secret']
-    delete this.model['password']
-    delete this.model['provider']
-    delete this.model['external_identifier']
-    this.apiService.save('/users/me', this.model).subscribe(
+    let body: any = {
+      id: this.model.id,
+      first_name: this.model.first_name,
+      last_name: this.model.last_name,
+      email: this.model.email,
+      location: this.model.location,
+      mobile: this.model.mobile,
+      description: this.model.description,
+      date_of_birth: this.model.date_of_birth,
+      in_game_username: this.model.in_game_username,
+      in_game_id: this.model.in_game_id,
+    };
+    
+    this.apiService.save('/users/me', body).subscribe(
       (response) => {
         console.log('user updated: ', response)
         Swal.fire({
@@ -64,7 +70,7 @@ export class ProfileComponent {
           showConfirmButton: false, // Remove the "OK" button
           timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
         });
-        // this.authService.updateUserDetails(response)
+        this.apiService.auth('logout').subscribe(data => console.log(data));
         this.isEdit = false;
       },
       (error) => {
