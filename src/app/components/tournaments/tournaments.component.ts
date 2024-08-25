@@ -112,6 +112,7 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   }
 
   participate(tournament: any){
+
     if(!this.isProfileComplete()){
       Swal.fire({
         title: 'Incomplete Profile',
@@ -121,6 +122,29 @@ export class TournamentsComponent implements OnInit, OnDestroy {
         preConfirm: () => {
           this.router.navigate(['/auth/profile']);
         }
+      });
+      return;
+    }
+    if(tournament.players_limit >= tournament.players.length){
+      Swal.fire({
+        title: 'Tournament Full',
+        text: 'This tournament is already full.',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
+
+    const isAlreadyParticipated = tournament.players.some(
+      (player: { directus_users_id: any; }) => player.directus_users_id === this.apiService.currentUserValue.id
+    );
+    
+    if (isAlreadyParticipated) {
+      Swal.fire({
+        title: 'Already Participated',
+        text: 'You have already participated in this tournament.',
+        icon: 'warning',
+        confirmButtonText: 'OK',
       });
       return;
     }

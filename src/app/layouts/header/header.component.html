@@ -150,7 +150,7 @@
                         <li><a href="blogs">BLOGS</a></li>
                         <li><a href="news">NEWS</a></li>
                         <li><a href="contact">CONTACT</a></li>
-                        <li *ngIf="apiService.currentUserValue"><a href="aut/profile">PROFILE</a></li>
+                        <li *ngIf="apiService.currentUserValue"><a href="auth/profile">PROFILE</a></li>
                         <li *ngIf="!apiService.currentUserValue"><a href="auth/login">LOGIN</a></li>
                         <li *ngIf="!apiService.currentUserValue"><a href="auth/register">REGISTER</a></li>
                         <li *ngIf="apiService.currentUserValue"><a href="notifications">NOTIFICATIONS</a></li>

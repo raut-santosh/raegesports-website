@@ -48,35 +48,39 @@ export class ProfileComponent {
   
 
   formSubmit(event:any){
-    let body: any = {
-      id: this.model.id,
-      first_name: this.model.first_name,
-      last_name: this.model.last_name,
-      email: this.model.email,
-      location: this.model.location,
-      mobile: this.model.mobile,
-      description: this.model.description,
-      date_of_birth: this.model.date_of_birth,
-      in_game_username: this.model.in_game_username,
-      in_game_id: this.model.in_game_id,
-    };
+    if (this.checkRequiredFields()) {
+      let body: any = {
+        id: this.model.id,
+        first_name: this.model.first_name,
+        last_name: this.model.last_name,
+        email: this.model.email,
+        location: this.model.location,
+        mobile: this.model.mobile,
+        description: this.model.description,
+        date_of_birth: this.model.date_of_birth,
+        game_username: this.model.game_username,
+        in_game_id: this.model.in_game_id,
+        raeg_id: this.model.raeg_id
+      };
+      
+      this.apiService.save('/users/me', body).subscribe(
+        (response) => {
+          console.log('user updated: ', response)
+          Swal.fire({
+            icon: 'success',
+            title: 'Profile Updated',
+            showConfirmButton: false, // Remove the "OK" button
+            timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
+          });
+          this.apiService.auth('logout').subscribe(data => console.log(data));
+          this.isEdit = false;
+        },
+        (error) => {
+          console.log('error updating user: ', error)
+        }
+      )
+    }
     
-    this.apiService.save('/users/me', body).subscribe(
-      (response) => {
-        console.log('user updated: ', response)
-        Swal.fire({
-          icon: 'success',
-          title: 'Profile Updated',
-          showConfirmButton: false, // Remove the "OK" button
-          timer: 2000 // Set the timer for 2000 milliseconds (2 seconds)
-        });
-        this.apiService.auth('logout').subscribe(data => console.log(data));
-        this.isEdit = false;
-      },
-      (error) => {
-        console.log('error updating user: ', error)
-      }
-    )
   }
 
   toggleEdit(){
@@ -100,6 +104,31 @@ export class ProfileComponent {
   //  }
   //  )
   }
+
+
+checkRequiredFields() {
+  const inputs = document.querySelectorAll<HTMLInputElement>('input#exampleInputEmail1[required]');
+  let hasError = false;
+
+  inputs.forEach((input) => {
+    if (!input.value.trim()) {
+      hasError = true;
+    }
+  });
+
+  if (hasError) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Required Fields',
+      text: 'Please fill in all required fields before submitting.',
+    });
+
+    return false; // Prevent further submission if needed
+  }
+
+  return true; // Allow submission if all fields are filled
+}
+
   
   participatedTournaments() {
     this.apiService.get('tournaments_directus_users?fields=*,tournaments_id.*,directus_users_id.*').subscribe(
