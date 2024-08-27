@@ -10136,3 +10136,8 @@ blockquote p {
   -webkit-line-clamp: 1; /* Limit to 1 line */
   -webkit-box-orient: vertical;
 }
+
+
+input::-webkit-input-placeholder{
+  color: white !important;
+}
