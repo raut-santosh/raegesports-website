@@ -62,7 +62,10 @@
                                 <img style="cursor:pointer;" [src]="apiUrl + '/assets/' +apiService.currentUserValue?.avatar" alt="Profile Image">
                                 <a href="/auth/profile" style="margin-left:20px;cursor:pointer;">{{apiService.currentUserValue?.first_name+' '+apiService.currentUserValue?.last_name}}</a>
                             </div>
-                            
+                            <div class="wallet" *ngIf="apiService.currentUserValue">
+                                <span style="color:gold;font-weight:bold;">Wallet :  <span style="color:white;">{{apiService.currentUserValue.balance ?? 0}} Rs</span></span>
+                                <button class="withdraw-btn" [routerLink]="['withdraw-request']">Withdraw</button>
+                            </div>
                             <div class="tgmobile__search">
                                 <form action="#">
                                     <input type="text" placeholder="Search here...">

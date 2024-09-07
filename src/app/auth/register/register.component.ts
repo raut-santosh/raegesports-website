@@ -234,6 +234,13 @@ export class RegisterComponent {
         (response) => {
           if (response.success) {
             // Update UI or perform additional actions if needed
+            Swal.fire({
+              icon: 'success',
+              title: 'Otp is sent on you email address',
+              text: '',
+              showConfirmButton: false,
+              timer: 2000
+            });
             this.otpSent = true;
             this.startTimer();
           } else {

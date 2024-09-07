@@ -11,6 +11,7 @@ import { BlogDetailsComponent } from './components/blog-details/blog-details.com
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { PolicyComponent } from './components/policy/policy.component';
+import { WidrawComponent } from './components/widraw/widraw.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,10 @@ const routes: Routes = [
   {
     path: 'privacy-policy',
     component: PolicyComponent
+  },
+  {
+    path: 'withdraw-request',
+    component: WidrawComponent
   }
 ];
 

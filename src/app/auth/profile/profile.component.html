@@ -37,17 +37,17 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <ul class="profile-list-items-l">
-                                <li><b>Email:</b> {{apiService.currentUserValue?.email}}</li>
-                                <li>Mobile: {{apiService.currentUserValue?.mobile}}</li>
-                                <li>Address: {{apiService.currentUserValue?.location}}</li>
-                                <li *ngIf="apiService.currentUserValue?.raeg_id">Raeg Id: {{apiService.currentUserValue?.raeg_id}}</li>
+                                <li><b>Email:</b> {{apiService.currentUserValue?.email ?? '-'}}</li>
+                                <li>Mobile: {{apiService.currentUserValue?.mobile ?? '-'}}</li>
+                                <li>Address: {{apiService.currentUserValue?.location ?? '-'}}</li>
+                                <li *ngIf="apiService.currentUserValue?.raeg_id">Raeg Id: {{apiService.currentUserValue?.raeg_id ?? '-'}}</li>
                             </ul>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <ul class="profile-list-items-r">
-                                <li>Balance: {{apiService.currentUserValue?.balance}} Rs</li>
-                                <li>Game Username: {{apiService.currentUserValue?.game_username}}</li>
-                                <li>In Game ID: {{apiService.currentUserValue?.in_game_id}}</li>
+                                <li>Balance: {{apiService.currentUserValue?.balance ?? 0}} Rs</li>
+                                <li>Game Username: {{apiService.currentUserValue?.game_username ?? '-'}}</li>
+                                <li>In Game ID: {{apiService.currentUserValue?.in_game_id ?? '-'}}</li>
                             </ul>
                         </div>
                     </div>
