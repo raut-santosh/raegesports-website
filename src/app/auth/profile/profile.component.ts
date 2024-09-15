@@ -21,6 +21,7 @@ export class ProfileComponent {
   tournaments: any = [];
   countdowns: string[] = [];
   apiUrl: string = environment.apiUrl
+  games: any [] = [];
   private countdownSubscription!: Subscription;
 
 
@@ -37,6 +38,7 @@ export class ProfileComponent {
       this.updateCountdowns();
     });
     console.log(this.apiService.currentUserValue)
+    this.getGames();
   }
 
   ngOnDestroy() {
@@ -44,6 +46,13 @@ export class ProfileComponent {
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe();
     }
+  }
+
+  getGames(){
+    this.apiService.get('games', null).subscribe(res => {
+      console.log(res);
+      this.games = res.data;
+    });
   }
   
 
@@ -58,6 +67,7 @@ export class ProfileComponent {
         mobile: this.model.mobile,
         description: this.model.description,
         date_of_birth: this.model.date_of_birth,
+        game: this.model.game,
         game_username: this.model.game_username,
         in_game_id: this.model.in_game_id,
         raeg_id: this.model.raeg_id

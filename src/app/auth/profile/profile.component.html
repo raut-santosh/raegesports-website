@@ -68,52 +68,53 @@
                 <div class="i_space"></div>
                 <form (ngSubmit)="formSubmit($event)" class="container">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label required">First Name</label>
                             <input [(ngModel)]="model.first_name" name="first_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label required">Last Name</label>
                             <input [(ngModel)]="model.last_name" name="last_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label required">Email address</label>
                             <input [(ngModel)]="model.email" name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
+                            <label for="exampleInputEmail1" class="form-label required">Mobile</label>
+                            <input [(ngModel)]="model.mobile" name="mobile" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                        </div>
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label">Location</label>
                             <input [(ngModel)]="model.location" name="location" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label">Description</label>
                             <input [(ngModel)]="model.description" name="description" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label">Date of Birth</label>
                             <input [(ngModel)]="model.date_of_birth" name="date_of_birth" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
+                            <label for="gameSelection" class="form-label required">Select Game</label>
+                            <select [(ngModel)]="model.game" name="game" id="gameSelection" class="form-control" required>
+                                <option *ngFor="let game of games;" value="{{game.id}}">{{game.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label required">Game Username</label>
                             <input [(ngModel)]="model.game_username" name="game_username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label required">In Game ID</label>
                             <input [(ngModel)]="model.in_game_id" name="in_game_id" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label">RAEG ID</label>
                             <input [(ngModel)]="model.raeg_id" name="raeg_id" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
-                        <div class="col-sm-12 col-md-6" style="text-align: left;">
+                        <div class="col-sm-12 col-md-6 mb-3" style="text-align: left;">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
                             <input [(ngModel)]="model.password" type="password" name="password" class="form-control" id="exampleInputPassword1">
                         </div>
@@ -138,12 +139,10 @@
                         <div class="col-sm-12 col-md-6" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label">Old Password</label>
                             <input [(ngModel)]="model.password" name="first_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
                         <div class="col-sm-12 col-md-6" style="text-align: left;">
                             <label for="exampleInputEmail1" class="form-label">New Password</label>
                             <input [(ngModel)]="model.last_name" name="last_name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
                     </div>
                     <div class="row">

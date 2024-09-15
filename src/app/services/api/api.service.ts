@@ -116,6 +116,10 @@ export class ApiService {
       ? this.http.patch<T>(finalUrl, payload)
       : this.http.post<T>(finalUrl, payload);
 
+    if(collection.includes('/users/me')){
+      console.log('calling getSetUser')
+      this.getSetCurrentUser(this.currentUserValue.session)
+    }
     return save$;
 }
 
